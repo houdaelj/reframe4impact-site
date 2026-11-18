@@ -1,0 +1,629 @@
+<title>ReFrame 4Impact</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Manrope:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: sticky top bar + hash-routed pages; one bold zellige mosaic in the hero, quiet colour-coded sections after. */
+:root{
+  --paper:#F7F8F6; --surface:#FFFFFF; --ink:#10241F; --muted:#526760; --line:#DAE3DC;
+  --green:#1E7A57; --green-soft:#DDEFE5;
+  --coral:#C4694C; --coral-ink:#9E4E35; --coral-soft:#F3E2DA;
+  --saffron:#E0A73E; --saffron-ink:#8A5A00; --saffron-soft:#FCEFCF;
+  --ocean:#2F5597; --ocean-soft:#E1E8F3;
+  --on-color:#FFFFFF; --band:#123A31; --band-ink:#F2F7F4;
+  --hl-bg:#CFE6DA;
+  --logo-ink:#123A31; --logo-ring:#8FC9A6; --logo-leaf:#1E7A57; --logo-sub:#1E7A57;
+  --display:"Manrope", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --hero:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#0C1714; --surface:#13221E; --ink:#E6EFEA; --muted:#9AB0A7; --line:#25392F;
+  --green:#4CC293; --green-soft:#16362A; --coral:#D98C70; --coral-ink:#E3A48C; --coral-soft:#3A251D;
+  --saffron:#F7C559; --saffron-ink:#F7C559; --saffron-soft:#352A12; --ocean:#74A3F5; --ocean-soft:#172A4A;
+  --hl-bg:#24503F; --logo-ink:#FFFFFF; --logo-ring:#A8D5BA; --logo-leaf:#D7EDE0; --logo-sub:#CFE6DA; --on-color:#08120F; --band:#16302A; --band-ink:#E6EFEA; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#0C1714; --surface:#13221E; --ink:#E6EFEA; --muted:#9AB0A7; --line:#25392F;
+  --green:#4CC293; --green-soft:#16362A; --coral:#D98C70; --coral-ink:#E3A48C; --coral-soft:#3A251D;
+  --saffron:#F7C559; --saffron-ink:#F7C559; --saffron-soft:#352A12; --ocean:#74A3F5; --ocean-soft:#172A4A;
+  --hl-bg:#24503F; --logo-ink:#FFFFFF; --logo-ring:#A8D5BA; --logo-leaf:#D7EDE0; --logo-sub:#CFE6DA; --on-color:#08120F; --band:#16302A; --band-ink:#E6EFEA; color-scheme:dark }
+
+html[lang="fr"] .en, html[lang="en"] .fr{display:none!important}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 16.5px/1.6 var(--body);margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.12;letter-spacing:-.02em;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+:focus-visible{outline:3px solid var(--ocean);outline-offset:3px;border-radius:6px}
+
+/* mock ribbon */
+.ribbon{background:var(--band);color:var(--band-ink);font:500 12px/1 var(--mono);letter-spacing:.08em;text-align:center;padding-block:7px}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:20px;min-height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 20px/1 var(--display);letter-spacing:-.02em;white-space:nowrap}
+.logo b{color:var(--coral-ink);font-weight:800}
+.p-frame,.p-four{fill:none;stroke:var(--logo-ink)}
+.p-ring{fill:var(--logo-ring)}.p-leaf{fill:var(--logo-leaf)}
+.p-word{fill:var(--logo-ink);stroke:var(--logo-ink)}.p-word2{fill:var(--logo-sub);stroke:var(--logo-sub)}
+.logo-svg{display:block;height:52px;width:162px}
+footer{--logo-ink:#FFFFFF;--logo-ring:#A8D5BA;--logo-leaf:#D7EDE0;--logo-sub:#CFE6DA}
+.mark{width:30px;height:30px;display:grid;grid-template-columns:1fr 1fr;gap:2px;flex:none}
+.mark i{display:block}
+.mark i:nth-child(1){background:var(--green);border-radius:15px 0 0 0}
+.mark i:nth-child(2){background:var(--saffron);border-radius:0 15px 0 0}
+.mark i:nth-child(3){background:var(--ocean);border-radius:0 0 0 15px}
+.mark i:nth-child(4){background:var(--coral);border-radius:0 0 15px 0}
+nav.main{display:flex;gap:4px;margin-left:auto}
+nav.main a{text-decoration:none;font-weight:500;font-size:15px;padding:8px 12px;border-radius:999px;color:var(--muted)}
+nav.main a:hover{color:var(--ink);background:var(--surface)}
+nav.main a[aria-current="page"]{color:var(--ink);background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)}
+nav.main a.acad{color:var(--green)}
+.tools{display:flex;align-items:center;gap:10px}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.lang button{border:0;background:none;font:500 12px/1 var(--mono);padding:7px 9px;border-radius:999px;color:var(--muted);cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font:600 15px/1 var(--body);padding:13px 20px;border-radius:999px;border:0;cursor:pointer;white-space:nowrap}
+.btn-primary{background:var(--coral);color:var(--on-color)}
+.btn-primary:hover{filter:brightness(1.06)}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn-ghost:hover{background:var(--surface)}
+.btn-sm{padding:10px 16px;font-size:14px}
+.burger{display:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:9px 13px;font:500 13px/1 var(--body);color:var(--ink);cursor:pointer}
+@media (max-width:980px){
+  .burger{display:inline-block}
+  .tools .btn{display:none}
+  nav.main{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-left,0px)) 16px}
+  nav.main.open{display:flex}
+  .top .wrap{position:relative}
+  .tools{margin-left:auto}
+}
+
+/* pages */
+section.page{display:none}
+section.page.on{display:block;animation:rise .45s ease both}
+@keyframes rise{from{opacity:.4;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){section.page.on{animation:none}}
+.block{padding-block:72px}
+.block + .block{padding-top:0}
+.head{display:grid;gap:14px;max-width:760px;margin-bottom:36px}
+.head h2{font-size:clamp(30px,4.4vw,48px)}
+.head p{color:var(--muted);font-size:18px}
+
+/* hero */
+.hero{padding-block:56px 64px}
+.hero .wrap{display:grid;grid-template-columns:1.25fr .9fr;gap:48px;align-items:center}
+.hero h1{font-family:var(--hero);font-size:clamp(32px,4.4vw,56px);font-weight:700;letter-spacing:-.03em}
+.hl{color:var(--ink);background:var(--hl-bg);padding:0 .14em;margin:0 .02em;border-radius:0;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+
+.hero .lead{font-size:19px;color:var(--muted);max-width:56ch;margin-top:24px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero > .wrap > div{min-width:0}
+.mosaic{display:block;aspect-ratio:1;width:100%;max-width:100%;border:0;padding:0;background:none}
+.mk2{display:block;width:100%;height:100%;overflow:hidden}
+.pc{transform-box:fill-box;transform-origin:center;transform:translate(var(--x),var(--y)) rotate(var(--rot));
+  transition:transform 1s cubic-bezier(.65,0,.35,1),color .8s ease;transition-delay:calc(var(--d) * 45ms);color:var(--c)}
+.pc path{stroke:currentColor}
+.pc-ring path,.pc-leaf path{fill:currentColor;stroke:none}
+.pc-ring{opacity:.9}
+/* reframed: the scattered pieces snap into the ReFrame 4Impact mark and take its colours */
+.mosaic.framed .pc{transform:none}
+.mosaic.framed .pc-s{color:var(--logo-ink)}
+.mosaic.framed .pc-ring{color:var(--logo-ring);opacity:1}
+.mosaic.framed .pc-leaf{color:var(--logo-leaf)}
+@media (prefers-reduced-motion:reduce){.pc{transition:none!important}}
+.reframe-cap{margin-top:16px;display:flex;align-items:center;gap:12px;font:500 13px/1.4 var(--mono);color:var(--muted);letter-spacing:.03em;min-height:2.8em}
+.reframe-cap .state{color:var(--ink)}
+.reframe-cap .k{font:500 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.12em;padding:6px 8px;border-radius:6px;box-shadow:inset 0 0 0 1px var(--line);white-space:nowrap}
+.mosaic:not(.framed) ~ .reframe-cap .b, .mosaic.framed ~ .reframe-cap .a{display:none}
+
+.tagline{margin:calc(18px - 20%) 0 0;padding-left:22.5%;text-align:left;font:700 clamp(22px,2.4vw,30px)/1.15 var(--display);letter-spacing:-.02em;color:var(--logo-ink);text-wrap:balance;
+  animation:tagIn .7s cubic-bezier(.2,.8,.2,1) 1.9s both}
+.tagline em{font-style:normal;color:var(--green)}
+@keyframes tagIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.tagline{animation:none}}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts div{padding:22px 20px;display:grid;gap:6px;min-width:0}
+.facts div + div{border-left:1px solid var(--line)}
+.facts strong{font:700 22px/1.15 var(--display)}
+
+/* pillars */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pillar{padding:28px;border-radius:var(--r);background:var(--surface);display:grid;gap:12px;align-content:start}
+.pillar .picon{width:52px;height:52px;display:block;padding:13px;border-radius:14px;background:var(--green-soft);fill:none;stroke:var(--green);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;box-sizing:border-box}
+.pillar h3{font-size:24px}
+.pillar p{color:var(--muted)}
+
+/* audiences */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.aud{border-radius:24px;padding:36px;display:grid;gap:18px;align-content:start;text-decoration:none;min-width:0}
+.aud{background:var(--surface);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .2s}
+.aud:hover{box-shadow:inset 0 0 0 2px var(--green)}
+.aud.g h3,.aud.o h3{color:var(--ink)}
+.aud li::before{background:var(--green)!important}
+.aud .more{color:var(--green)}
+.aud h3{font-size:clamp(26px,3vw,34px)}
+.aud ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.aud li{display:flex;gap:10px;align-items:baseline}
+.aud li::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.7;flex:none;transform:translateY(-2px)}
+.aud .more{font-weight:600;display:inline-flex;gap:8px}
+.aud:hover .more span.arr{transform:translateX(4px)}
+.arr{display:inline-block;transition:transform .2s}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+.step{padding:24px;border-radius:var(--r);background:var(--surface);display:grid;gap:10px;align-content:start;border-top:3px solid var(--green)}
+.step .n{font:700 28px/1 var(--display);color:var(--green)}
+.step h3{font-size:21px}
+.step p{color:var(--muted);font-size:15.5px}
+
+/* académie band */
+.acad-band{background:var(--band);color:var(--band-ink);border-radius:28px;padding:48px;display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;overflow:hidden;position:relative}
+.acad-band h2{font-size:clamp(30px,4vw,46px)}
+.acad-band p{opacity:.82}
+.acad-band .eyebrow{color:color-mix(in srgb,var(--band-ink) 65%,transparent)}
+.course{background:var(--surface);color:var(--ink);border-radius:20px;padding:26px;display:grid;gap:14px;min-width:0}
+.course .tag{justify-self:start;font:500 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border-radius:999px;background:var(--green-soft);color:var(--green)}
+.course h3{font-size:26px}
+.course p{color:var(--muted);opacity:1}
+.course .meta{display:flex;flex-wrap:wrap;gap:8px}
+.course .meta span{font:500 12.5px/1 var(--mono);padding:7px 10px;border-radius:8px;background:var(--paper);color:var(--muted)}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{padding:10px 16px;border-radius:999px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);font-weight:500;font-size:15px;display:inline-flex;gap:9px;align-items:center}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.std{font:500 14px/1 var(--mono);padding:10px 14px;border-radius:10px;background:transparent;box-shadow:inset 0 0 0 1px var(--line);color:var(--muted)}
+
+/* cta */
+.cta{border-radius:28px;padding:56px 48px;background:var(--band);color:var(--band-ink);display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between}
+.cta h2{font-size:clamp(28px,4vw,44px);max-width:18ch}
+.cta .btn{background:var(--coral);color:#fff}
+.cta .btn-ghost{background:transparent;color:var(--band-ink);box-shadow:inset 0 0 0 1.5px currentColor}
+
+/* expertises */
+.subhero{padding-block:56px 40px}
+.subhero h1{font-size:clamp(34px,4.6vw,56px);font-weight:700;max-width:16ch}
+.subhero p{font-size:19px;color:var(--muted);max-width:60ch;margin-top:18px}
+.svc-col{display:grid;gap:14px;align-content:start;min-width:0}
+.svc-col > h2{font-size:28px;display:flex;align-items:center;gap:12px}
+.svc-col > h2 i{width:16px;height:16px;border-radius:50%;background:var(--k)}
+.svc{background:var(--surface);border-radius:16px;padding:20px 22px;display:grid;gap:6px;box-shadow:inset 0 0 0 1px var(--line)}
+.svc-grid{grid-auto-rows:1fr}
+.svc-grid .svc{align-content:start}
+.svc h3{font-size:19px;letter-spacing:-.01em}
+.svc p{color:var(--muted);font-size:15.5px}
+.deliv{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.deliv > div{border-radius:var(--r);padding:28px;display:grid;gap:14px;align-content:start}
+.deliv .a,.deliv .b{background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)}
+.deliv h3{font-size:22px}
+.deliv ul{margin:0;padding-left:20px;display:grid;gap:6px}
+
+/* about */
+.bio{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start}
+.portrait{aspect-ratio:4/5;max-width:100%;border-radius:24px;background:var(--green-soft);display:grid;place-items:center;position:relative;overflow:hidden}
+.portrait span{font:500 12px/1.4 var(--mono);color:var(--green);text-align:center;padding:16px;letter-spacing:.06em;position:relative}
+.portrait::before{content:"";position:absolute;width:70%;aspect-ratio:1;border-radius:50%;background:var(--green);opacity:.15;top:-12%;right:-18%}
+.portrait::after{content:"";position:absolute;width:55%;aspect-ratio:1;border-radius:0 100% 0 0;background:var(--green);opacity:.22;bottom:0;left:0}
+.bio-text{display:grid;gap:18px;min-width:0}
+.bio-text h2{font-size:clamp(32px,4vw,46px)}
+.creds{display:flex;flex-wrap:wrap;gap:8px}
+.creds span{font-size:14px;padding:8px 12px;border-radius:10px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)}
+.bio-text ul{margin:0;padding-left:20px;display:grid;gap:8px;color:var(--muted)}
+.bio-text ul strong{color:var(--ink)}
+.xp{width:100%;border-collapse:collapse;background:var(--surface);border-radius:var(--r);overflow:hidden}
+.xp th,.xp td{text-align:left;padding:16px 20px;border-bottom:1px solid var(--line);vertical-align:top}
+.xp th{font:500 12px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);width:30%}
+.xp tr:last-child th,.xp tr:last-child td{border-bottom:0}
+.tablewrap{overflow-x:auto}
+.values{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.values div{border-radius:16px;padding:22px;font:700 22px/1.1 var(--display);color:var(--ink)!important;background:var(--surface)!important;box-shadow:inset 0 0 0 1px var(--line);display:flex;gap:12px;align-items:center}
+.values div::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--green);flex:none}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.ccard{background:var(--surface);border-radius:var(--r);padding:28px;display:grid;gap:18px;min-width:0}
+.line{display:grid;gap:4px}
+.line .v{font:600 18px/1.3 var(--body);word-break:break-word;user-select:all}
+.copy{justify-self:start;border:0;background:var(--paper);color:var(--ink);font:500 12px/1 var(--mono);padding:8px 10px;border-radius:8px;cursor:pointer}
+form{display:grid;gap:14px}
+label{font-weight:500;font-size:14px;display:grid;gap:6px}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%}
+textarea{min-height:120px;resize:vertical}
+.note{font-size:13.5px;color:var(--muted)}
+.ok{background:var(--green-soft);color:var(--green);padding:12px 14px;border-radius:12px;font-weight:500}
+
+/* footer */
+footer{margin-top:24px;background:var(--band);color:var(--band-ink)}
+footer .wrap{padding-block:48px 32px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:32px}
+footer .logo b{color:var(--saffron)}
+footer p,footer li{opacity:.75;font-size:14.5px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer a{text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer .base{grid-column:1/-1;border-top:1px solid color-mix(in srgb,var(--band-ink) 18%,transparent);padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font:500 12px/1.4 var(--mono);opacity:.7}
+
+@media (max-width:900px){
+  .hero .wrap,.acad-band,.bio,.contact{grid-template-columns:1fr}
+  .mosaic{max-width:380px}
+  .grid3,.steps,.values{grid-template-columns:1fr 1fr}
+  .facts{grid-template-columns:1fr 1fr}
+  .facts div:nth-child(3){border-left:0}
+  .facts div:nth-child(n+3){border-top:1px solid var(--line)}
+  footer .wrap{grid-template-columns:1fr 1fr}
+  footer .wrap > div:first-child{grid-column:1/-1}
+  .portrait{max-width:340px}
+}
+@media (max-width:620px){
+  .grid2,.grid3,.steps,.deliv,.values{grid-template-columns:1fr}
+  .acad-band,.cta{padding:32px 22px}
+  .aud{padding:26px}
+  .block{padding-block:52px}
+  .logo .full{display:none}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="r4i-mark" viewBox="229 398.5 39 44"><path class="p-frame" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="4" d="M 193.993801 50.006927 L 193.993801 10.491172 L 11.508097 10.491172 L 11.508097 204.494039 L 193.993801 204.494039 L 193.993801 149.991628 " transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/><path class="p-ring" fill-rule="nonzero" d="M 250.296875 413.847656 C 250.296875 414.21875 250.261719 414.585938 250.1875 414.949219 C 250.113281 415.3125 250.003906 415.664062 249.863281 416.007812 C 249.71875 416.347656 249.542969 416.675781 249.332031 416.980469 C 249.125 417.289062 248.886719 417.574219 248.621094 417.835938 C 248.355469 418.097656 248.066406 418.332031 247.753906 418.539062 C 247.441406 418.742188 247.113281 418.917969 246.765625 419.058594 C 246.417969 419.199219 246.0625 419.308594 245.691406 419.378906 C 245.324219 419.453125 244.953125 419.488281 244.578125 419.488281 C 244.203125 419.488281 243.828125 419.453125 243.460938 419.378906 C 243.09375 419.308594 242.734375 419.199219 242.386719 419.058594 C 242.039062 418.917969 241.710938 418.742188 241.398438 418.539062 C 241.085938 418.332031 240.796875 418.097656 240.53125 417.835938 C 240.265625 417.574219 240.027344 417.289062 239.820312 416.980469 C 239.613281 416.675781 239.4375 416.347656 239.292969 416.007812 C 239.148438 415.664062 239.039062 415.3125 238.964844 414.949219 C 238.894531 414.585938 238.855469 414.21875 238.855469 413.847656 C 238.855469 413.480469 238.894531 413.113281 238.964844 412.75 C 239.039062 412.386719 239.148438 412.03125 239.292969 411.691406 C 239.4375 411.347656 239.613281 411.023438 239.820312 410.714844 C 240.027344 410.410156 240.265625 410.125 240.53125 409.863281 C 240.796875 409.601562 241.085938 409.367188 241.398438 409.160156 C 241.710938 408.953125 242.039062 408.78125 242.386719 408.640625 C 242.734375 408.496094 243.09375 408.390625 243.460938 408.320312 C 243.828125 408.246094 244.203125 408.210938 244.578125 408.210938 C 244.953125 408.210938 245.324219 408.246094 245.691406 408.320312 C 246.0625 408.390625 246.417969 408.496094 246.765625 408.640625 C 247.113281 408.78125 247.441406 408.953125 247.753906 409.160156 C 248.066406 409.367188 248.355469 409.601562 248.621094 409.863281 C 248.886719 410.125 249.125 410.410156 249.332031 410.714844 C 249.542969 411.023438 249.71875 411.347656 249.863281 411.691406 C 250.003906 412.03125 250.113281 412.386719 250.1875 412.75 C 250.261719 413.113281 250.296875 413.480469 250.296875 413.847656 Z M 250.296875 413.847656 "/><path class="p-leaf" fill-rule="nonzero" d="M 249.902344 422.988281 C 250.296875 415.792969 255.230469 409.570312 264.105469 407.238281 C 263.511719 415.40625 258.582031 421.238281 249.902344 422.988281 Z M 249.902344 422.988281 "/><path class="p-leaf" fill-rule="nonzero" d="M 249.113281 425.125 C 256.015625 423.570312 263.117188 426.683594 267.0625 433.875 C 259.566406 435.625 252.074219 432.515625 249.113281 425.125 Z M 249.113281 425.125 "/><path class="p-four" stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" d="M 85.492534 179.000652 L 85.492534 44.00021 L 20.003633 135.004972 L 94.99803 135.004972 " transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></symbol><symbol id="r4i-logo" viewBox="228.5 398 140 45"><path class="p-frame" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="4" d="M 193.993801 50.006927 L 193.993801 10.491172 L 11.508097 10.491172 L 11.508097 204.494039 L 193.993801 204.494039 L 193.993801 149.991628 " transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/><path class="p-ring" fill-rule="nonzero" d="M 250.296875 413.847656 C 250.296875 414.21875 250.261719 414.585938 250.1875 414.949219 C 250.113281 415.3125 250.003906 415.664062 249.863281 416.007812 C 249.71875 416.347656 249.542969 416.675781 249.332031 416.980469 C 249.125 417.289062 248.886719 417.574219 248.621094 417.835938 C 248.355469 418.097656 248.066406 418.332031 247.753906 418.539062 C 247.441406 418.742188 247.113281 418.917969 246.765625 419.058594 C 246.417969 419.199219 246.0625 419.308594 245.691406 419.378906 C 245.324219 419.453125 244.953125 419.488281 244.578125 419.488281 C 244.203125 419.488281 243.828125 419.453125 243.460938 419.378906 C 243.09375 419.308594 242.734375 419.199219 242.386719 419.058594 C 242.039062 418.917969 241.710938 418.742188 241.398438 418.539062 C 241.085938 418.332031 240.796875 418.097656 240.53125 417.835938 C 240.265625 417.574219 240.027344 417.289062 239.820312 416.980469 C 239.613281 416.675781 239.4375 416.347656 239.292969 416.007812 C 239.148438 415.664062 239.039062 415.3125 238.964844 414.949219 C 238.894531 414.585938 238.855469 414.21875 238.855469 413.847656 C 238.855469 413.480469 238.894531 413.113281 238.964844 412.75 C 239.039062 412.386719 239.148438 412.03125 239.292969 411.691406 C 239.4375 411.347656 239.613281 411.023438 239.820312 410.714844 C 240.027344 410.410156 240.265625 410.125 240.53125 409.863281 C 240.796875 409.601562 241.085938 409.367188 241.398438 409.160156 C 241.710938 408.953125 242.039062 408.78125 242.386719 408.640625 C 242.734375 408.496094 243.09375 408.390625 243.460938 408.320312 C 243.828125 408.246094 244.203125 408.210938 244.578125 408.210938 C 244.953125 408.210938 245.324219 408.246094 245.691406 408.320312 C 246.0625 408.390625 246.417969 408.496094 246.765625 408.640625 C 247.113281 408.78125 247.441406 408.953125 247.753906 409.160156 C 248.066406 409.367188 248.355469 409.601562 248.621094 409.863281 C 248.886719 410.125 249.125 410.410156 249.332031 410.714844 C 249.542969 411.023438 249.71875 411.347656 249.863281 411.691406 C 250.003906 412.03125 250.113281 412.386719 250.1875 412.75 C 250.261719 413.113281 250.296875 413.480469 250.296875 413.847656 Z M 250.296875 413.847656 "/><path class="p-leaf" fill-rule="nonzero" d="M 249.902344 422.988281 C 250.296875 415.792969 255.230469 409.570312 264.105469 407.238281 C 263.511719 415.40625 258.582031 421.238281 249.902344 422.988281 Z M 249.902344 422.988281 "/><path class="p-leaf" fill-rule="nonzero" d="M 249.113281 425.125 C 256.015625 423.570312 263.117188 426.683594 267.0625 433.875 C 259.566406 435.625 252.074219 432.515625 249.113281 425.125 Z M 249.113281 425.125 "/><path class="p-four" stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" d="M 85.492534 179.000652 L 85.492534 44.00021 L 20.003633 135.004972 L 94.99803 135.004972 " transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/><path class="p-word" fill-rule="nonzero" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="round" stroke-miterlimit="4" d="M 251.799094 96.553954 C 251.799094 98.643246 251.8387 100.471377 251.898109 102.038347 C 251.957519 103.605316 252.016928 104.951303 252.115944 106.076306 C 252.195156 107.221399 252.313975 108.165599 252.452597 108.928994 C 252.571415 109.69239 252.72984 110.335249 252.868462 110.857572 L 252.868462 110.998197 L 243.996667 110.998197 L 243.996667 110.857572 C 244.155091 110.335249 244.293713 109.69239 244.432335 108.928994 C 244.551154 108.165599 244.669972 107.221399 244.749185 106.076306 C 244.8482 104.951303 244.927413 103.605316 244.986822 102.058436 C 245.046232 100.511556 245.066035 98.663336 245.066035 96.553954 L 245.066035 72.486911 C 245.066035 70.397618 245.046232 68.569487 244.986822 67.002518 C 244.927413 65.435548 244.8482 64.089562 244.749185 62.944469 C 244.669972 61.819465 244.551154 60.855176 244.432335 60.091781 C 244.293713 59.308296 244.155091 58.665437 243.996667 58.143114 L 243.996667 58.002488 L 245.561113 58.143114 C 246.016584 58.203382 246.551268 58.223471 247.125559 58.243561 C 247.699849 58.243561 248.293942 58.26365 248.907839 58.26365 C 249.878192 58.26365 251.185197 58.143114 252.809053 57.902042 C 254.452711 57.681059 256.532038 57.560523 259.08664 57.560523 C 261.443211 57.560523 263.641357 57.881952 265.641471 58.524812 C 267.641586 59.167671 269.38426 60.091781 270.869494 61.317231 C 272.354727 62.562771 273.503308 64.069473 274.335039 65.857425 C 275.146966 67.645377 275.562832 69.674402 275.562832 71.924409 C 275.562832 73.712361 275.344997 75.359688 274.889526 76.866389 C 274.414251 78.39318 273.780551 79.759256 272.948821 80.984706 C 272.136893 82.230246 271.146737 83.315071 269.978353 84.259271 C 268.829773 85.20347 267.522767 86.007044 266.096943 86.649903 L 279.067983 104.870945 C 279.721486 105.774966 280.315579 106.558451 280.870067 107.221399 C 281.424554 107.904437 281.959238 108.466939 282.454316 108.949084 C 282.969197 109.431228 283.444472 109.833015 283.919746 110.134355 C 284.375218 110.435696 284.870296 110.676768 285.365374 110.857572 L 285.365374 110.998197 L 274.671692 110.998197 C 274.612282 110.536142 274.354842 109.913372 273.958779 109.129888 C 273.542914 108.366492 273.067639 107.583008 272.532955 106.819612 L 259.443096 88.377588 C 258.888609 88.437856 258.314319 88.478034 257.740028 88.518213 C 257.185541 88.538303 256.611251 88.558392 256.017157 88.558392 C 255.324048 88.558392 254.630939 88.538303 253.918027 88.498124 C 253.224918 88.437856 252.512006 88.357498 251.799094 88.236962 Z M 251.799094 85.344096 C 252.4724 85.50481 253.145706 85.605257 253.838815 85.665525 C 254.512121 85.725793 255.185426 85.765972 255.819126 85.765972 C 257.680619 85.765972 259.363884 85.484721 260.888724 84.922219 C 262.413563 84.379807 263.720569 83.536054 264.789937 82.390961 C 265.859305 81.265957 266.691036 79.839613 267.28513 78.152108 C 267.879223 76.464602 268.17627 74.495846 268.17627 72.225749 C 268.17627 70.377529 267.958436 68.710113 267.54257 67.203411 C 267.126705 65.69671 266.493005 64.431081 265.681077 63.386435 C 264.849347 62.321699 263.819585 61.518125 262.552185 60.935534 C 261.304589 60.352943 259.839158 60.071692 258.155894 60.071692 C 256.452826 60.071692 255.106214 60.152049 254.096255 60.332853 C 253.086296 60.493568 252.313975 60.694461 251.799094 60.875266 Z M 329.645139 111.661146 C 326.912309 111.661146 324.357707 111.23927 321.96153 110.375427 C 319.565353 109.511585 317.486026 108.245956 315.723549 106.57854 C 313.941269 104.911124 312.535247 102.86201 311.525288 100.411109 C 310.495527 97.960208 309.980646 95.147699 309.980646 91.993671 C 309.980646 89.22134 310.45592 86.629814 311.386667 84.259271 C 312.337216 81.888727 313.624419 79.819524 315.268077 78.07175 C 316.931539 76.323977 318.852441 74.957901 321.050587 73.973523 C 323.268536 72.989145 325.644909 72.486911 328.219314 72.486911 C 330.754113 72.486911 333.090881 72.928876 335.269223 73.792719 C 337.427763 74.67665 339.309059 75.942279 340.913111 77.609695 C 342.49736 79.277112 343.744957 81.326225 344.675703 83.777126 C 345.606449 86.228027 346.101527 89.020447 346.18074 92.154386 C 343.3885 92.094118 340.596261 92.074028 337.823825 92.03385 C 335.031586 92.01376 332.140331 91.993671 329.130258 91.993671 C 326.991521 91.993671 324.892391 92.01376 322.872473 92.03385 C 320.832753 92.074028 319.010866 92.094118 317.387011 92.154386 C 317.525632 94.705733 317.921695 97.036098 318.575197 99.105301 C 319.2287 101.174505 320.139643 102.942367 321.288224 104.40889 C 322.417002 105.875413 323.823023 107.000416 325.446878 107.783901 C 327.090537 108.567386 328.95203 108.969173 331.011554 108.969173 C 332.457181 108.969173 333.803793 108.808458 335.071192 108.466939 C 336.338592 108.145509 337.487172 107.683454 338.516934 107.080774 C 339.546696 106.498183 340.477443 105.795055 341.28937 104.991481 C 342.101298 104.187907 342.794407 103.324065 343.368697 102.379866 L 343.804366 102.600848 L 341.071536 109.190156 C 339.744727 109.873194 338.160478 110.455785 336.298985 110.937929 C 334.457296 111.420074 332.239347 111.661146 329.645139 111.661146 Z M 324.733966 89.120894 C 327.189552 89.120894 329.664942 89.120894 332.140331 89.100804 C 334.615721 89.080715 336.873276 89.040536 338.893193 88.980268 C 338.675359 86.830708 338.259494 84.90213 337.625794 83.214624 C 337.011897 81.50703 336.239576 80.060596 335.269223 78.875324 C 334.298871 77.690053 333.170093 76.786032 331.863088 76.143173 C 330.556082 75.500313 329.130258 75.178884 327.546008 75.178884 C 326.120184 75.178884 324.793376 75.500313 323.605189 76.123083 C 322.417002 76.765943 321.367437 77.669963 320.476296 78.855235 C 319.604959 80.020418 318.892047 81.466851 318.33756 83.194535 C 317.802876 84.90213 317.486026 86.850797 317.387011 89.040536 C 318.495985 89.100804 319.664369 89.120894 320.892162 89.120894 C 322.119955 89.120894 323.407157 89.120894 324.733966 89.120894 Z M 385.47012 96.553954 C 385.47012 98.643246 385.509726 100.471377 385.569135 102.038347 C 385.628545 103.605316 385.707757 104.951303 385.78697 106.076306 C 385.885985 107.221399 385.985001 108.165599 386.123622 108.928994 C 386.262244 109.69239 386.400866 110.335249 386.539488 110.857572 L 386.539488 110.998197 L 377.667692 110.998197 L 377.667692 110.857572 C 377.826117 110.335249 377.964739 109.69239 378.103361 108.928994 C 378.241983 108.165599 378.360801 107.221399 378.459817 106.076306 C 378.558833 104.951303 378.618242 103.605316 378.677651 102.038347 C 378.717258 100.471377 378.756864 98.643246 378.756864 96.553954 L 378.756864 72.486911 C 378.756864 70.397618 378.717258 68.569487 378.677651 67.002518 C 378.618242 65.435548 378.558833 64.089562 378.459817 62.924379 C 378.360801 61.779286 378.241983 60.835087 378.103361 60.071692 C 377.964739 59.308296 377.826117 58.665437 377.667692 58.143114 L 377.667692 58.002488 C 379.727216 58.002488 381.78674 58.002488 383.885871 57.982399 C 385.985001 57.96231 388.004918 57.96231 389.98523 57.94222 C 391.965541 57.94222 393.827034 57.902042 395.609315 57.861863 C 397.371792 57.841774 398.975844 57.801595 400.401668 57.761416 C 401.827493 57.721237 403.035483 57.681059 404.025638 57.620791 C 405.015794 57.540433 405.708903 57.480165 406.144572 57.399808 L 404.322685 62.321699 C 403.510757 62.100716 402.560208 61.899823 401.471037 61.739108 C 400.54029 61.578393 399.411513 61.437767 398.064901 61.317231 C 396.718289 61.176606 395.173646 61.096249 393.430972 61.096249 C 392.836878 61.096249 392.08436 61.116338 391.213023 61.156517 C 390.321883 61.196695 389.450546 61.236874 388.579209 61.297142 C 387.589053 61.337321 386.559291 61.397589 385.47012 61.437767 L 385.47012 80.100775 C 388.004918 80.080686 390.341686 80.000328 392.460619 79.879792 C 394.579553 79.759256 396.401439 79.63872 397.926279 79.518184 C 399.708559 79.357469 401.312612 79.196754 402.738436 78.995861 L 401.629462 84.359717 C 399.787772 84.138735 397.906476 83.917752 396.005377 83.716858 C 394.381521 83.556143 392.638847 83.395429 390.757551 83.254803 C 388.896059 83.134267 387.133581 83.05391 385.47012 83.05391 Z M 437.314675 87.614192 C 437.314675 85.50481 437.275068 83.676679 437.215659 82.10971 C 437.15625 80.542741 437.077037 79.196754 436.997825 78.07175 C 436.898809 76.926657 436.799794 75.982458 436.661172 75.219063 C 436.52255 74.455667 436.383928 73.812808 436.245306 73.310574 L 436.245306 73.149859 L 444.780449 73.149859 L 444.780449 73.310574 C 444.582418 73.873076 444.40419 74.556114 444.285371 75.379777 C 444.146749 76.183351 444.027931 77.227998 443.968521 78.513716 C 444.879465 77.750321 445.830014 77.007015 446.800367 76.263709 C 447.790522 75.520403 448.800481 74.857454 449.830243 74.294952 C 450.879808 73.732451 451.929373 73.270395 452.998742 72.928876 C 454.06811 72.587358 455.157281 72.406553 456.226649 72.406553 C 456.899955 72.406553 457.474246 72.446732 457.969324 72.507 C 458.464401 72.567268 458.90007 72.647626 459.296132 72.768162 C 459.692195 72.868608 460.048651 73.009234 460.3655 73.12977 C 460.68235 73.270395 460.9992 73.390932 461.296247 73.531557 L 459.494163 80.582919 L 458.860464 80.442294 C 458.563417 79.357469 458.00893 78.473537 457.197002 77.830678 C 456.385074 77.16773 455.2761 76.8463 453.870079 76.8463 C 453.097757 76.8463 452.305633 76.986925 451.473902 77.248087 C 450.622368 77.529338 449.770834 77.911036 448.9193 78.39318 C 448.047963 78.855235 447.196429 79.417737 446.325092 80.040507 C 445.473558 80.683366 444.622024 81.326225 443.810096 82.029353 C 443.77049 82.73248 443.730884 83.515965 443.730884 84.359717 C 443.730884 85.183381 443.730884 86.067312 443.730884 87.011512 L 443.730884 96.553954 C 443.730884 98.643246 443.77049 100.471377 443.810096 102.038347 C 443.869506 103.605316 443.928915 104.951303 444.027931 106.076306 C 444.126946 107.221399 444.245765 108.165599 444.364584 108.928994 C 444.483402 109.69239 444.622024 110.335249 444.780449 110.857572 L 444.780449 110.998197 L 436.245306 110.998197 L 436.245306 110.857572 C 436.383928 110.335249 436.52255 109.69239 436.661172 108.928994 C 436.799794 108.165599 436.898809 107.221399 436.997825 106.076306 C 437.077037 104.951303 437.15625 103.605316 437.215659 102.038347 C 437.275068 100.471377 437.314675 98.643246 437.314675 96.553954 Z M 487.990846 100.08968 C 487.990846 98.141012 488.386908 96.453507 489.198836 95.027163 C 489.99096 93.600819 491.060329 92.375369 492.387137 91.370901 C 493.733749 90.366433 495.238786 89.54277 496.941854 88.92 C 498.644922 88.29723 500.407399 87.794997 502.229285 87.433388 C 504.051172 87.07178 505.853255 86.830708 507.615733 86.690082 C 509.398013 86.569546 511.021868 86.489189 512.507102 86.44901 L 512.507102 84.5807 C 512.507102 82.953463 512.289268 81.547208 511.873402 80.361937 C 511.457537 79.176665 510.863444 78.192287 510.091122 77.428891 C 509.338604 76.645406 508.407857 76.062815 507.338489 75.681118 C 506.269121 75.29942 505.100737 75.118616 503.813535 75.118616 C 502.922394 75.118616 502.051057 75.178884 501.199523 75.339599 C 500.328186 75.480224 499.437046 75.721296 498.5063 76.082905 C 497.595357 76.424424 496.605201 76.886479 495.595242 77.46907 C 494.56548 78.07175 493.456506 78.815056 492.288122 79.739167 L 491.911863 79.518184 L 494.426858 74.294952 C 495.238786 73.933344 496.050714 73.632004 496.823035 73.390932 C 497.61516 73.149859 498.427087 72.969055 499.239015 72.82843 C 500.050943 72.667715 500.882674 72.567268 501.734208 72.507 C 502.585741 72.446732 503.476882 72.406553 504.407628 72.406553 C 507.001836 72.406553 509.199982 72.727983 511.041672 73.350753 C 512.883361 73.993612 514.388398 74.837365 515.556782 75.942279 C 516.725166 77.047194 517.5767 78.312823 518.111384 79.779345 C 518.665871 81.245868 518.923311 82.832927 518.923311 84.500343 L 518.923311 96.553954 C 518.923311 98.643246 518.962918 100.471377 519.022327 102.038347 C 519.081736 103.605316 519.160949 104.951303 519.240161 106.076306 C 519.339177 107.221399 519.438192 108.165599 519.576814 108.928994 C 519.715436 109.69239 519.854058 110.335249 520.012483 110.857572 L 520.012483 110.998197 L 511.833796 110.998197 L 511.833796 110.857572 C 511.952615 110.455785 512.05163 110.013819 512.11104 109.511585 C 512.170449 109.029441 512.229858 108.44685 512.269465 107.743722 C 511.754584 108.185688 511.16049 108.647743 510.447578 109.109798 C 509.754469 109.591943 508.942541 110.013819 508.051401 110.395517 C 507.140458 110.777215 506.150302 111.078555 505.061131 111.319627 C 503.952156 111.54061 502.76397 111.661146 501.456964 111.661146 C 497.159688 111.661146 493.852568 110.656678 491.5158 108.647743 C 489.15923 106.638808 487.990846 103.78612 487.990846 100.08968 Z M 512.507102 89.341877 C 510.249547 89.361966 508.110811 89.502591 506.031483 89.723574 C 503.97196 89.964646 502.13027 90.446791 500.546021 91.190097 C 498.961771 91.933403 497.694372 92.978049 496.743823 94.344125 C 495.793273 95.710201 495.317998 97.538332 495.317998 99.808429 C 495.317998 102.701295 496.050714 104.931213 497.496341 106.458004 C 498.941968 107.984795 500.961886 108.74819 503.516488 108.74819 C 504.704675 108.74819 505.774043 108.587475 506.744396 108.245956 C 507.734551 107.904437 508.586085 107.50265 509.338604 106.980327 C 510.091122 106.478093 510.724822 105.935681 511.239703 105.333 C 511.754584 104.73032 512.150646 104.147729 512.42789 103.565137 C 512.467496 102.641027 512.507102 101.596381 512.507102 100.451288 C 512.507102 99.306195 512.507102 98.000387 512.507102 96.553954 Z M 578.708915 86.087402 C 578.708915 84.460164 578.55049 83.05391 578.213837 81.868638 C 577.877185 80.683366 577.40191 79.719077 576.76821 78.935593 C 576.13451 78.152108 575.381992 77.589606 574.490852 77.207908 C 573.619515 76.826211 572.629359 76.625317 571.540188 76.625317 C 570.807472 76.625317 569.975742 76.765943 569.064798 77.067283 C 568.153855 77.368623 567.203306 77.77041 566.232953 78.272644 C 565.2626 78.774878 564.292248 79.357469 563.321895 80.020418 C 562.351542 80.683366 561.420796 81.406583 560.569262 82.169978 C 560.509853 82.953463 560.49005 83.797216 560.49005 84.701236 C 560.49005 85.605257 560.49005 86.569546 560.49005 87.614192 L 560.49005 96.553954 C 560.49005 98.643246 560.509853 100.471377 560.569262 102.038347 C 560.608868 103.605316 560.688081 104.951303 560.787096 106.076306 C 560.886112 107.221399 560.985127 108.165599 561.123749 108.928994 C 561.242568 109.69239 561.38119 110.335249 561.519812 110.857572 L 561.519812 110.998197 L 552.984669 110.998197 L 552.984669 110.857572 C 553.143094 110.335249 553.281716 109.69239 553.420338 108.928994 C 553.539156 108.165599 553.657975 107.221399 553.737187 106.076306 C 553.836203 104.951303 553.895612 103.605316 553.974825 102.038347 C 554.034234 100.471377 554.054037 98.643246 554.054037 96.553954 L 554.054037 87.614192 C 554.054037 85.50481 554.034234 83.676679 553.974825 82.10971 C 553.895612 80.542741 553.836203 79.196754 553.737187 78.07175 C 553.657975 76.926657 553.539156 75.982458 553.420338 75.219063 C 553.281716 74.455667 553.143094 73.812808 552.984669 73.310574 L 552.984669 73.149859 L 561.519812 73.149859 L 561.519812 73.310574 C 561.32178 73.873076 561.183159 74.596293 561.06434 75.460135 C 560.945521 76.344066 560.826703 77.448981 560.707884 78.774878 C 561.69804 77.991393 562.747605 77.207908 563.896185 76.444513 C 565.024963 75.681118 566.193347 74.99808 567.381534 74.415488 C 568.56972 73.812808 569.777711 73.330664 570.985701 72.969055 C 572.193691 72.607447 573.381877 72.406553 574.570064 72.406553 C 575.976085 72.406553 577.223682 72.607447 578.312853 72.969055 C 579.382221 73.330664 580.332771 73.852987 581.144698 74.475757 C 581.956626 75.118616 582.649735 75.882011 583.204222 76.745853 C 583.75871 77.609695 584.174575 78.533806 584.471622 79.518184 C 585.481581 78.654342 586.590555 77.7905 587.778742 76.946747 C 588.986732 76.082905 590.214525 75.339599 591.481924 74.67665 C 592.749324 73.993612 594.036526 73.471289 595.363335 73.049413 C 596.670341 72.627536 597.957543 72.406553 599.224942 72.406553 C 601.145845 72.406553 602.7697 72.748072 604.116312 73.411021 C 605.462924 74.07397 606.552095 74.957901 607.403629 76.042726 C 608.255163 77.127551 608.869059 78.353001 609.265122 79.759256 C 609.641381 81.145421 609.839412 82.551676 609.839412 83.97802 L 609.839412 96.553954 C 609.839412 98.643246 609.859215 100.471377 609.898821 102.038347 C 609.958231 103.605316 610.037443 104.951303 610.116656 106.076306 C 610.215671 107.221399 610.33449 108.165599 610.473112 108.928994 C 610.611734 109.69239 610.750355 110.335249 610.90878 110.857572 L 610.90878 110.998197 L 602.334031 110.998197 L 602.334031 110.857572 C 602.472653 110.335249 602.611275 109.69239 602.749897 108.928994 C 602.888519 108.165599 603.007337 107.221399 603.106353 106.076306 C 603.205369 104.951303 603.284581 103.605316 603.324187 102.038347 C 603.383597 100.471377 603.4034 98.643246 603.4034 96.553954 L 603.4034 86.087402 C 603.4034 82.832927 602.749897 80.442294 601.442891 78.915503 C 600.135886 77.388712 598.393212 76.625317 596.195066 76.625317 C 595.422744 76.625317 594.591014 76.765943 593.660267 77.067283 C 592.729521 77.368623 591.778971 77.77041 590.788815 78.292733 C 589.818463 78.815056 588.828307 79.397648 587.838151 80.080686 C 586.847996 80.763724 585.937052 81.48694 585.065715 82.250336 C 585.125125 82.531586 585.144928 82.832927 585.144928 83.134267 C 585.144928 83.435607 585.144928 83.716858 585.144928 83.97802 L 585.144928 96.553954 C 585.144928 98.643246 585.164731 100.471377 585.243943 102.038347 C 585.303353 103.605316 585.362762 104.951303 585.461778 106.076306 C 585.54099 107.221399 585.659809 108.165599 585.798431 108.928994 C 585.917249 109.69239 586.075674 110.335249 586.214296 110.857572 L 586.214296 110.998197 L 577.679153 110.998197 L 577.679153 110.857572 C 577.817775 110.335249 577.956397 109.69239 578.075216 108.928994 C 578.213837 108.165599 578.312853 107.221399 578.411869 106.076306 C 578.510884 104.951303 578.590097 103.605316 578.629703 102.038347 C 578.689112 100.471377 578.708915 98.643246 578.708915 96.553954 Z M 661.485936 111.661146 C 658.753106 111.661146 656.178701 111.23927 653.782524 110.375427 C 651.40615 109.511585 649.326823 108.245956 647.544543 106.57854 C 645.762263 104.911124 644.376045 102.86201 643.346283 100.411109 C 642.336324 97.960208 641.821443 95.147699 641.821443 91.993671 C 641.821443 89.22134 642.276914 86.629814 643.227464 84.259271 C 644.15821 81.888727 645.445413 79.819524 647.108874 78.07175 C 648.752533 76.323977 650.673435 74.957901 652.891384 73.973523 C 655.08953 72.989145 657.465903 72.486911 660.040308 72.486911 C 662.575107 72.486911 664.931678 72.928876 667.090217 73.792719 C 669.26856 74.67665 671.149856 75.942279 672.734105 77.609695 C 674.318354 79.277112 675.585754 81.326225 676.496697 83.777126 C 677.427443 86.228027 677.922521 89.020447 678.001734 92.154386 C 675.209494 92.094118 672.437058 92.074028 669.644819 92.03385 C 666.872383 92.01376 663.961325 91.993671 660.971055 91.993671 C 658.812515 91.993671 656.733188 92.01376 654.693467 92.03385 C 652.67355 92.074028 650.83186 92.094118 649.208005 92.154386 C 649.346626 94.705733 649.762492 97.036098 650.415995 99.105301 C 651.069497 101.174505 651.960638 102.942367 653.109218 104.40889 C 654.257799 105.875413 655.644017 107.000416 657.287675 107.783901 C 658.931334 108.567386 660.773024 108.969173 662.852351 108.969173 C 664.278175 108.969173 665.624787 108.808458 666.892186 108.466939 C 668.159586 108.145509 669.308166 107.683454 670.357731 107.080774 C 671.387493 106.498183 672.298437 105.795055 673.130167 104.991481 C 673.942095 104.187907 674.615401 103.324065 675.189691 102.379866 L 675.62536 102.600848 L 672.89253 109.190156 C 671.565721 109.873194 669.981472 110.455785 668.139782 110.937929 C 666.27829 111.420074 664.060341 111.661146 661.485936 111.661146 Z M 656.55496 89.120894 C 659.03035 89.120894 661.505739 89.120894 663.981128 89.100804 C 666.456518 89.080715 668.69427 89.040536 670.714187 88.980268 C 670.496353 86.830708 670.080488 84.90213 669.466591 83.214624 C 668.852695 81.50703 668.06057 80.060596 667.090217 78.875324 C 666.139668 77.690053 665.01089 76.786032 663.703885 76.143173 C 662.396879 75.500313 660.951252 75.178884 659.367003 75.178884 C 657.941178 75.178884 656.634173 75.500313 655.445986 76.123083 C 654.237996 76.765943 653.208234 77.669963 652.317094 78.855235 C 651.425953 80.020418 650.713041 81.466851 650.178357 83.194535 C 649.62387 84.90213 649.30702 86.850797 649.208005 89.040536 C 650.316979 89.100804 651.485363 89.120894 652.713156 89.120894 C 653.960752 89.120894 655.228152 89.120894 656.55496 89.120894 Z M 656.55496 89.120894 " transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/><path class="p-word2" fill-rule="nonzero" stroke-width="1.1" stroke-linecap="butt" stroke-linejoin="round" stroke-miterlimit="4" d="M 278.09763 138.078643 L 278.09763 138.239358 C 277.978812 138.761681 277.859993 139.444719 277.760978 140.228204 C 277.642159 141.011688 277.562946 141.996067 277.503537 143.181338 C 277.444128 144.36661 277.384718 145.752775 277.345112 147.380013 C 277.305506 149.00725 277.285703 150.895649 277.285703 153.085389 L 277.285703 176.710466 C 279.62247 176.650198 281.523569 176.56984 282.989 176.469394 C 284.45443 176.368947 285.622814 176.208232 286.494151 176.007339 L 286.652576 176.007339 L 286.652576 181.491731 L 286.494151 181.491731 C 285.622814 181.351106 284.45443 181.210481 282.989 181.069855 C 281.523569 180.949319 279.62247 180.848872 277.285703 180.808693 C 277.325309 182.677003 277.364915 184.304241 277.404521 185.710495 C 277.463931 187.11675 277.543143 188.3422 277.642159 189.386847 C 277.741174 190.411403 277.859993 191.295335 277.978812 192.018552 C 278.117434 192.761858 278.256055 193.364538 278.394677 193.846683 L 278.394677 194.007397 L 269.206032 194.007397 L 269.206032 193.846683 C 269.344654 193.364538 269.483275 192.761858 269.621897 192.018552 C 269.740716 191.295335 269.859535 190.411403 269.938747 189.386847 C 270.037763 188.3422 270.116975 187.11675 270.176384 185.710495 C 270.235794 184.304241 270.295203 182.677003 270.315006 180.808693 L 243.996667 180.808693 L 243.996667 179.081009 L 277.285703 138.078643 Z M 270.315006 176.710466 L 270.315006 152.623333 L 250.907954 176.710466 Z M 309.505371 193.846683 C 309.663796 193.30427 309.802417 192.641321 309.921236 191.857837 C 310.059858 191.054263 310.178677 190.069884 310.277692 188.904702 C 310.376708 187.71943 310.45592 186.313176 310.495527 184.706028 C 310.554936 183.07879 310.574739 181.170302 310.574739 179.000652 L 310.574739 154.029588 C 310.574739 151.859938 310.554936 149.971539 310.495527 148.344302 C 310.45592 146.717064 310.376708 145.31081 310.277692 144.125538 C 310.178677 142.940266 310.059858 141.935799 309.921236 141.152314 C 309.802417 140.34874 309.663796 139.685791 309.505371 139.143379 L 309.505371 139.002753 L 318.674213 139.002753 L 318.674213 139.143379 C 318.515788 139.685791 318.377166 140.34874 318.238544 141.152314 C 318.099923 141.935799 317.981104 142.940266 317.882088 144.125538 C 317.802876 145.31081 317.723663 146.717064 317.664254 148.344302 C 317.585042 149.971539 317.565239 151.859938 317.565239 154.029588 L 317.565239 179.000652 C 317.565239 181.170302 317.585042 183.07879 317.664254 184.706028 C 317.723663 186.313176 317.802876 187.71943 317.882088 188.904702 C 317.981104 190.069884 318.099923 191.054263 318.238544 191.857837 C 318.377166 192.641321 318.515788 193.30427 318.674213 193.846683 L 318.674213 194.007397 L 309.505371 194.007397 Z M 343.249879 193.846683 C 343.527122 193.444896 343.863775 192.822126 344.220231 192.018552 C 344.576687 191.214978 344.853931 190.21051 345.051962 188.98506 C 345.349009 187.177018 345.646056 185.168083 346.002512 182.938165 C 346.339165 180.688157 346.695621 178.357793 347.07188 175.886802 C 347.448139 173.435902 347.804595 170.924733 348.180854 168.353296 C 348.557113 165.781859 348.91357 163.2506 349.250222 160.759521 C 349.606679 158.268441 349.943331 155.877808 350.260181 153.547444 C 350.577031 151.237168 350.854275 149.127786 351.111715 147.199209 C 351.369156 145.29072 351.58699 143.623304 351.745415 142.19696 C 351.923643 140.790706 352.042462 139.72597 352.121674 139.002753 L 356.99324 139.002753 L 381.113434 184.103347 L 405.035597 139.002753 L 408.67937 139.002753 L 414.976761 184.565402 C 415.154989 185.991746 415.35302 187.217197 415.551051 188.241754 C 415.749082 189.26631 415.966917 190.150242 416.164948 190.873459 C 416.362979 191.596675 416.56101 192.199356 416.759041 192.6815 C 416.957072 193.143555 417.135301 193.545342 417.313529 193.846683 L 417.313529 194.007397 L 407.649608 194.007397 L 407.649608 193.846683 C 407.78823 193.565432 407.907049 193.103377 408.025868 192.460517 C 408.124883 191.817658 408.184293 191.054263 408.184293 190.170331 C 408.184293 189.828812 408.184293 189.487293 408.144686 189.145774 C 408.124883 188.804255 408.085277 188.422558 408.025868 188.020771 L 403.174104 151.277347 L 380.539144 193.846683 L 377.885527 193.545342 L 355.111944 150.895649 C 354.220804 156.942544 353.42868 162.547473 352.775177 167.690347 C 352.47813 169.880086 352.200887 172.089915 351.923643 174.259565 C 351.646399 176.449304 351.388959 178.498418 351.171125 180.386817 C 350.95329 182.275216 350.794865 183.942632 350.656244 185.389066 C 350.537425 186.835499 350.458212 187.900235 350.458212 188.583272 C 350.458212 189.467204 350.497819 190.230599 350.537425 190.893548 C 350.596834 191.556496 350.636441 192.118998 350.69585 192.581053 C 350.775062 193.123466 350.854275 193.585521 350.933487 194.007397 L 343.249879 194.007397 Z M 450.028274 169.639014 C 452.54327 170.101069 454.840431 170.141248 456.919758 169.77964 C 458.999086 169.418031 460.781366 168.614457 462.286403 167.409096 C 463.771636 166.183646 464.94002 164.536319 465.771751 162.467116 C 466.603482 160.397912 467.019347 157.866654 467.019347 154.873341 C 467.019347 152.804138 466.801513 150.915739 466.365844 149.228233 C 465.930176 147.520638 465.296476 146.074205 464.425139 144.888933 C 463.573605 143.703661 462.504237 142.779551 461.197231 142.116603 C 459.890226 141.473743 458.365386 141.152314 456.622712 141.152314 C 455.53354 141.152314 454.563188 141.192493 453.75126 141.27285 C 452.939332 141.373297 452.246223 141.473743 451.671933 141.57419 C 451.01843 141.694726 450.463943 141.835352 450.028274 141.996067 Z M 441.9288 139.002753 C 442.443681 139.042932 442.978366 139.1032 443.552656 139.143379 C 444.027931 139.203647 444.582418 139.243825 445.176511 139.243825 C 445.770605 139.263915 446.404304 139.263915 447.038004 139.263915 C 448.02816 139.263915 449.394575 139.143379 451.07784 138.902306 C 452.780907 138.661234 454.95925 138.540698 457.593064 138.540698 C 460.048651 138.540698 462.306206 138.902306 464.385533 139.605434 C 466.484663 140.32865 468.286746 141.373297 469.811586 142.759462 C 471.356229 144.145627 472.544416 145.813043 473.415753 147.801889 C 474.267287 149.790735 474.683153 152.040742 474.683153 154.572001 C 474.683153 157.967101 474.009847 160.920236 472.663235 163.391226 C 471.29682 165.882305 469.494736 167.871151 467.217378 169.418031 C 464.94002 170.944822 462.326009 171.989468 459.355542 172.531881 C 456.385074 173.094383 453.275985 173.114472 450.028274 172.632327 L 450.028274 179.000652 C 450.028274 181.170302 450.067881 183.07879 450.12729 184.706028 C 450.186699 186.313176 450.265912 187.71943 450.364927 188.904702 C 450.44414 190.069884 450.562959 191.054263 450.70158 191.857837 C 450.840202 192.641321 450.998627 193.30427 451.137249 193.846683 L 451.137249 194.007397 L 441.9288 194.007397 L 441.9288 193.846683 C 442.087225 193.30427 442.24565 192.641321 442.384272 191.857837 C 442.522894 191.054263 442.641713 190.069884 442.740728 188.904702 C 442.839744 187.71943 442.918956 186.313176 442.978366 184.706028 C 443.017972 183.07879 443.057578 181.170302 443.057578 179.000652 L 443.057578 154.029588 C 443.057578 151.859938 443.017972 149.971539 442.978366 148.344302 C 442.918956 146.717064 442.839744 145.31081 442.740728 144.125538 C 442.641713 142.940266 442.522894 141.935799 442.384272 141.152314 C 442.24565 140.34874 442.087225 139.685791 441.9288 139.143379 Z M 536.211431 194.007397 L 536.211431 193.846683 C 536.27084 193.726146 536.290643 193.525253 536.330249 193.264091 C 536.350052 193.023019 536.369856 192.781947 536.369856 192.581053 C 536.369856 191.797569 536.251037 190.913637 536.033203 189.949348 C 535.815368 188.98506 535.399503 187.799788 534.785606 186.373444 L 530.151678 175.926981 C 528.725853 175.886802 526.804951 175.866713 524.428577 175.866713 C 522.052203 175.866713 519.477799 175.866713 516.725166 175.866713 C 514.705248 175.866713 512.764543 175.866713 510.883247 175.866713 C 509.001951 175.866713 507.298883 175.886802 505.793846 175.926981 L 501.377751 186.052014 C 501.001492 187.016303 500.585627 188.04086 500.149958 189.165864 C 499.71429 190.290867 499.496456 191.43596 499.496456 192.581053 C 499.496456 192.922572 499.536062 193.183734 499.575668 193.404717 C 499.635077 193.6257 499.674684 193.766325 499.734093 193.846683 L 499.734093 194.007397 L 491.911863 194.007397 L 491.911863 193.846683 C 492.367334 193.364538 492.941625 192.500696 493.634734 191.255156 C 494.327843 190.009616 495.080361 188.462736 495.892289 186.594427 L 517.873746 137.85766 L 520.943229 137.85766 L 541.776106 184.726117 C 542.251381 185.810942 542.766262 186.875678 543.281143 187.920324 C 543.815827 188.96497 544.310905 189.88908 544.766376 190.692654 C 545.221848 191.516318 545.637713 192.219445 545.994169 192.781947 C 546.350626 193.344449 546.588263 193.685968 546.726885 193.846683 L 546.726885 194.007397 Z M 511.358521 172.55197 C 512.843755 172.55197 514.368595 172.55197 515.913238 172.531881 C 517.477684 172.531881 519.002524 172.511791 520.507561 172.511791 C 521.992794 172.491702 523.438422 172.471613 524.82464 172.471613 C 526.191055 172.451523 527.458454 172.431434 528.587231 172.411345 L 517.794534 148.042961 L 507.21967 172.55197 Z M 611.918739 147.440281 L 611.582086 147.600996 C 609.581972 145.752775 607.185795 144.286253 604.373752 143.181338 C 601.581513 142.076424 598.51203 141.534012 595.165304 141.534012 C 591.937396 141.534012 588.986732 142.036245 586.293508 143.040713 C 583.620088 144.06527 581.303123 145.511703 579.382221 147.440281 C 577.441516 149.348769 575.936479 151.699223 574.867111 154.491643 C 573.797743 157.284063 573.263059 160.458181 573.263059 164.013996 C 573.263059 167.91133 573.77794 171.567592 574.787899 174.962692 C 575.817661 178.337703 577.3425 181.270749 579.362418 183.761828 C 581.382336 186.232818 583.897331 188.181485 586.927208 189.607829 C 589.957085 191.034173 593.501842 191.737301 597.541678 191.737301 C 598.987305 191.737301 600.452736 191.576586 601.898363 191.275246 C 603.363793 190.973905 604.769815 190.51185 606.116426 189.90917 C 607.443235 189.306489 608.710634 188.583272 609.898821 187.71943 C 611.087008 186.875678 612.17618 185.891299 613.146532 184.786385 L 613.562398 185.067636 L 610.492915 192.882394 C 608.572013 193.6257 606.472883 194.188202 604.155918 194.589989 C 601.838954 194.991776 599.502186 195.192669 597.145615 195.192669 C 592.412671 195.192669 588.095592 194.509631 584.174575 193.143555 C 580.253558 191.777479 576.867226 189.828812 574.03538 187.317643 C 571.223338 184.826564 569.025192 181.813161 567.440943 178.297525 C 565.876497 174.781888 565.084372 170.864465 565.084372 166.585433 C 565.084372 164.154621 565.401222 161.763988 566.034922 159.413534 C 566.648818 157.042991 567.559762 154.813073 568.767752 152.683602 C 569.975742 150.57422 571.460975 148.625553 573.223453 146.8376 C 574.98593 145.069737 577.005847 143.522857 579.263403 142.217049 C 581.520958 140.911242 584.01615 139.906774 586.729177 139.163468 C 589.462007 138.440251 592.412671 138.078643 595.581169 138.078643 C 600.512145 138.078643 605.086664 138.842038 609.304728 140.34874 Z M 651.029891 142.377764 C 648.019818 142.377764 645.286988 142.51839 642.871008 142.779551 C 640.435225 143.040713 638.336094 143.342053 636.573617 143.643393 C 634.533896 144.025091 632.71201 144.446967 631.088154 144.909023 L 632.197129 138.701413 C 632.513979 138.721502 632.96945 138.741592 633.583347 138.761681 C 634.197243 138.80186 634.890352 138.821949 635.642871 138.842038 C 636.395389 138.862128 637.187514 138.882217 638.019245 138.902306 C 638.850975 138.922396 639.623297 138.922396 640.375815 138.942485 C 641.108531 138.962575 641.781836 138.962575 642.356127 138.982664 C 642.930417 139.002753 643.346283 139.002753 643.603723 139.002753 L 665.505968 139.002753 C 665.743606 139.002753 666.159471 139.002753 666.733761 138.982664 C 667.327855 138.962575 667.981358 138.962575 668.714073 138.942485 C 669.466591 138.922396 670.238913 138.922396 671.070643 138.902306 C 671.902374 138.882217 672.694499 138.862128 673.447017 138.842038 C 674.199536 138.821949 674.892645 138.80186 675.506541 138.761681 C 676.120438 138.741592 676.575909 138.721502 676.892759 138.701413 L 678.001734 144.909023 C 676.358075 144.446967 674.516385 144.025091 672.476665 143.643393 C 670.714187 143.342053 668.615057 143.040713 666.179274 142.779551 C 663.763294 142.51839 661.030464 142.377764 658.020391 142.377764 L 658.020391 179.000652 C 658.020391 181.170302 658.040194 183.07879 658.119406 184.706028 C 658.178816 186.313176 658.258028 187.71943 658.337241 188.904702 C 658.436256 190.069884 658.555075 191.054263 658.693697 191.857837 C 658.832318 192.641321 658.97094 193.30427 659.129365 193.846683 L 659.129365 194.007397 L 649.960523 194.007397 L 649.960523 193.846683 C 650.118948 193.30427 650.25757 192.641321 650.376388 191.857837 C 650.51501 191.054263 650.633829 190.069884 650.732844 188.904702 C 650.83186 187.71943 650.911072 186.313176 650.950679 184.706028 C 651.010088 183.07879 651.029891 181.170302 651.029891 179.000652 Z M 651.029891 142.377764 " transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></symbol></defs></svg>
+<div class="ribbon"><span class="fr">MAQUETTE · version de travail, contenus à valider</span><span class="en">MOCKUP · working draft, content to be validated</span></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#accueil" aria-label="ReFrame 4Impact"><svg class="logo-svg" aria-hidden="true"><use href="#r4i-logo"/></svg></a>
+    <nav class="main" id="nav" aria-label="Navigation">
+      <a href="#expertises"><span class="fr">Expertises</span><span class="en">Services</span></a>
+      <a href="#methode"><span class="fr">Méthode</span><span class="en">Approach</span></a>
+      <a href="#academie" class="acad"><span class="fr">L'Académie 4Impact</span><span class="en">4Impact Academy</span></a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <div class="lang" role="group" aria-label="Langue / Language">
+        <button type="button" id="lang-fr" data-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn-primary btn-sm" href="https://calendly.com/houda-eljoundi-reframe4impact/30min" target="_blank" rel="noopener"><span class="fr">Prendre rendez-vous</span><span class="en">Book a call</span></a>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ===================== ACCUEIL ===================== -->
+<section class="page" data-page="accueil">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>
+          <span class="fr">Faire de la durabilité un levier de <span class="hl hl-g">résilience</span>, de <span class="hl hl-s">performance</span> et d'<span class="hl hl-c">impact</span> mesurable.</span>
+          <span class="en">Turning sustainability into <span class="hl hl-g">resilience</span>, <span class="hl hl-s">performance</span> and evidence for <span class="hl hl-c">impact</span>.</span>
+        </h1>
+        <p class="lead">
+          <span class="fr">Nous accompagnons les entreprises et les organisations pour intégrer la durabilité à leur stratégie et à leur quotidien : du diagnostic au reporting, de la formation à la mise en œuvre.</span>
+          <span class="en">We support companies and organizations in integrating sustainability into their strategy and day-to-day work, from diagnosis and reporting to training and implementation.</span>
+        </p>
+        <div class="ctas">
+          <a class="btn btn-primary" href="https://calendly.com/houda-eljoundi-reframe4impact/30min" target="_blank" rel="noopener"><span class="fr">Échanger 30 minutes</span><span class="en">Book a 30-min call</span> <span class="arr">→</span></a>
+          <a class="btn btn-ghost" href="#expertises"><span class="fr">Voir nos expertises</span><span class="en">See our services</span></a>
+        </div>
+      </div>
+      <div>
+        <div class="mosaic" id="mosaic" aria-hidden="true">
+          <svg class="mk2" viewBox="219 390 58 62" aria-hidden="true"><g class="pc pc-s" style="--x:5px;--y:-3px;--rot:70deg;--c:var(--coral);--d:0"><path d="M 194 50 L 194 10.5" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-s" style="--x:2px;--y:-5px;--rot:-18deg;--c:var(--ocean);--d:1"><path d="M 194 10.5 L 11.5 10.5" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-s" style="--x:-5px;--y:2px;--rot:24deg;--c:var(--saffron);--d:2"><path d="M 11.5 10.5 L 11.5 204.5" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-s" style="--x:2px;--y:5px;--rot:14deg;--c:var(--green);--d:3"><path d="M 11.5 204.5 L 194 204.5" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-s" style="--x:5px;--y:4px;--rot:-60deg;--c:var(--ocean);--d:4"><path d="M 194 204.5 L 194 150" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-ring" style="--x:-5px;--y:-5px;--rot:0deg;--c:var(--saffron);--d:5"><path fill-rule="nonzero" d="M 250.296875 413.847656 C 250.296875 414.21875 250.261719 414.585938 250.1875 414.949219 C 250.113281 415.3125 250.003906 415.664062 249.863281 416.007812 C 249.71875 416.347656 249.542969 416.675781 249.332031 416.980469 C 249.125 417.289062 248.886719 417.574219 248.621094 417.835938 C 248.355469 418.097656 248.066406 418.332031 247.753906 418.539062 C 247.441406 418.742188 247.113281 418.917969 246.765625 419.058594 C 246.417969 419.199219 246.0625 419.308594 245.691406 419.378906 C 245.324219 419.453125 244.953125 419.488281 244.578125 419.488281 C 244.203125 419.488281 243.828125 419.453125 243.460938 419.378906 C 243.09375 419.308594 242.734375 419.199219 242.386719 419.058594 C 242.039062 418.917969 241.710938 418.742188 241.398438 418.539062 C 241.085938 418.332031 240.796875 418.097656 240.53125 417.835938 C 240.265625 417.574219 240.027344 417.289062 239.820312 416.980469 C 239.613281 416.675781 239.4375 416.347656 239.292969 416.007812 C 239.148438 415.664062 239.039062 415.3125 238.964844 414.949219 C 238.894531 414.585938 238.855469 414.21875 238.855469 413.847656 C 238.855469 413.480469 238.894531 413.113281 238.964844 412.75 C 239.039062 412.386719 239.148438 412.03125 239.292969 411.691406 C 239.4375 411.347656 239.613281 411.023438 239.820312 410.714844 C 240.027344 410.410156 240.265625 410.125 240.53125 409.863281 C 240.796875 409.601562 241.085938 409.367188 241.398438 409.160156 C 241.710938 408.953125 242.039062 408.78125 242.386719 408.640625 C 242.734375 408.496094 243.09375 408.390625 243.460938 408.320312 C 243.828125 408.246094 244.203125 408.210938 244.578125 408.210938 C 244.953125 408.210938 245.324219 408.246094 245.691406 408.320312 C 246.0625 408.390625 246.417969 408.496094 246.765625 408.640625 C 247.113281 408.78125 247.441406 408.953125 247.753906 409.160156 C 248.066406 409.367188 248.355469 409.601562 248.621094 409.863281 C 248.886719 410.125 249.125 410.410156 249.332031 410.714844 C 249.542969 411.023438 249.71875 411.347656 249.863281 411.691406 C 250.003906 412.03125 250.113281 412.386719 250.1875 412.75 C 250.261719 413.113281 250.296875 413.480469 250.296875 413.847656 Z M 250.296875 413.847656 "/></g><g class="pc pc-leaf" style="--x:4px;--y:-6px;--rot:50deg;--c:var(--green);--d:6"><path fill-rule="nonzero" d="M 249.902344 422.988281 C 250.296875 415.792969 255.230469 409.570312 264.105469 407.238281 C 263.511719 415.40625 258.582031 421.238281 249.902344 422.988281 Z M 249.902344 422.988281 "/></g><g class="pc pc-leaf" style="--x:5px;--y:5px;--rot:-45deg;--c:var(--ocean);--d:7"><path fill-rule="nonzero" d="M 249.113281 425.125 C 256.015625 423.570312 263.117188 426.683594 267.0625 433.875 C 259.566406 435.625 252.074219 432.515625 249.113281 425.125 Z M 249.113281 425.125 "/></g><g class="pc pc-s" style="--x:-3px;--y:3px;--rot:-28deg;--c:var(--coral);--d:8"><path stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" d="M 85.492534 179.000652 L 85.492534 44.00021 L 20.003633 135.004972 L 94.99803 135.004972 " transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)" fill="none"/></g></svg>
+        </div>
+        <p class="tagline"><span class="fr">Changer de regard,<br><em>accélérer l'impact.</em></span><span class="en">Shifting perspectives,<br><em>driving impact.</em></span></p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="block"><div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="fr">Qui sommes-nous</span><span class="en">Who we are</span></p>
+      <h2><span class="fr">Un cabinet à taille humaine, entre réalités locales et standards internationaux.</span><span class="en">A boutique consultancy bridging local realities and global standards.</span></h2>
+    </div>
+    <div class="grid3">
+      <div class="pillar"><svg class="picon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg><h3><span class="fr">Sur mesure</span><span class="en">Tailor-made</span></h3><p><span class="fr">Nous nous adaptons au niveau de maturité, aux contraintes et aux enjeux propres à chaque organisation.</span><span class="en">We adapt to each organization's maturity level, constraints and unique challenges.</span></p></div>
+      <div class="pillar"><svg class="picon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="5"/><circle cx="8.5" cy="14.5" r="5"/><circle cx="15.5" cy="14.5" r="5"/></svg><h3><span class="fr">Holistique</span><span class="en">Holistic</span></h3><p><span class="fr">Nous combinons stratégie, déploiement opérationnel et mobilisation des parties prenantes pour des résultats efficaces et durables.</span><span class="en">We combine strategy, operational deployment and stakeholder engagement for efficient, lasting outcomes.</span></p></div>
+      <div class="pillar"><svg class="picon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><h3><span class="fr">Local, international &amp; multilingue</span><span class="en">Local, international &amp; multilingual</span></h3><p><span class="fr">Nous relions les réalités du terrain aux référentiels mondiaux, en français, en anglais et en arabe.</span><span class="en">We bridge local realities with global standards and frameworks, and deliver in English, Arabic and French.</span></p></div>
+    </div>
+  </div></div>
+
+  <div class="block"><div class="wrap">
+    <div class="head">
+      <p class="eyebrow"><span class="fr">Ce que nous faisons</span><span class="en">What we do</span></p>
+      <h2><span class="fr">Pour les entreprises et les organisations, du diagnostic à la mise en œuvre.</span><span class="en">For companies and organizations, from diagnosis to implementation.</span></h2>
+    </div>
+    <div class="grid3 svc-grid">
+      <div class="svc"><h3><span class="fr">Reporting ESG</span><span class="en">ESG reporting</span></h3><p><span class="fr">Diagnostic, double matérialité, tableaux de bord, rapports alignés CSRD, GRI ou ISSB.</span><span class="en">Diagnosis, double materiality, dashboards, reports aligned with CSRD, GRI or ISSB.</span></p></div>
+      <div class="svc"><h3><span class="fr">Bilan carbone &amp; réduction</span><span class="en">Carbon footprint &amp; reduction</span></h3><p><span class="fr">Évaluations Scopes 1 à 3 et plans d'action de réduction.</span><span class="en">Scopes 1–3 assessments and reduction action plans.</span></p></div>
+      <div class="svc"><h3><span class="fr">Économie circulaire</span><span class="en">Circular economy strategies</span></h3><p><span class="fr">Réduction des déchets, réemploi, achats responsables.</span><span class="en">Waste reduction, reuse, responsible sourcing.</span></p></div>
+      <div class="svc"><h3><span class="fr">Politiques RH</span><span class="en">People policies</span></h3><p><span class="fr">Diversité &amp; inclusion, bien-être, éthique et gouvernance.</span><span class="en">Diversity &amp; inclusion, wellbeing, ethics and governance.</span></p></div>
+      <div class="svc"><h3><span class="fr">Sensibilisation &amp; formations</span><span class="en">Awareness &amp; trainings</span></h3><p><span class="fr">Ateliers pour dirigeants, collaborateurs et fournisseurs.</span><span class="en">Workshops for leadership, employees and suppliers.</span></p></div>
+      <div class="svc"><h3><span class="fr">Analyses sectorielles</span><span class="en">Industry-specific deep dives</span></h3><p><span class="fr">Risques, benchmarks et priorités propres à votre secteur.</span><span class="en">Sector risks, benchmarks and priorities.</span></p></div>
+    </div>
+    <div style="margin-top:28px"><a class="btn btn-ghost" href="#expertises"><span class="fr">Voir nos expertises</span><span class="en">See our services</span> <span class="arr">→</span></a></div>
+  </div></div>
+
+  <div class="block"><div class="wrap">
+    <div class="acad-band">
+      <div style="display:grid;gap:18px;min-width:0">
+        <p class="eyebrow"><span class="fr">L'Académie 4Impact</span><span class="en">The 4Impact Academy</span></p>
+        <h2><span class="fr">Apprendre à son rythme, comprendre ce qui change pour son activité.</span><span class="en">Learn at your own pace, understand what changes for your business.</span></h2>
+        <p><span class="fr">L'initiative pédagogique de ReFrame 4Impact : des parcours courts et concrets sur les réglementations et outils de la durabilité. Premier parcours en ligne : le CBAM pour les exportateurs.</span><span class="en">ReFrame 4Impact's learning initiative: short, practical learning paths on sustainability regulations and tools. First path live: CBAM for exporters.</span></p>
+        <div><a class="btn btn-primary" href="#academie"><span class="fr">Découvrir l'Académie</span><span class="en">Discover the Academy</span> <span class="arr">→</span></a></div>
+      </div>
+      <div class="course">
+        <span class="tag"><span class="fr">Parcours disponible</span><span class="en">Path available</span></span>
+        <h3><span class="fr">CBAM : le parcours exportateurs</span><span class="en">CBAM: the exporter path</span></h3>
+        <p><span class="fr">Comprendre le mécanisme, vérifier si vous êtes concerné, estimer ce qu'il coûte à vos clients européens, puis faire votre auto-diagnostic.</span><span class="en">Understand the mechanism, check whether you are in scope, estimate what it costs your EU customers, then run your self-assessment.</span></p>
+        <div class="meta"><span><span class="fr">≈ 20 min</span><span class="en">≈ 20 min</span></span><span><span class="fr">Auto-diagnostic</span><span class="en">Self-assessment</span></span><span><span class="fr">Calculateur</span><span class="en">Cost calculator</span></span></div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="block"><div class="wrap" style="display:grid;gap:40px">
+    <div style="display:grid;gap:18px">
+      <p class="eyebrow"><span class="fr">Secteurs &amp; thématiques</span><span class="en">Sectors &amp; themes</span></p>
+      <div class="chips">
+        <span class="chip" style="--k:var(--green)"><i></i><span class="fr">Climat &amp; transition énergétique</span><span class="en">Climate &amp; energy transition</span></span>
+        <span class="chip" style="--k:var(--saffron)"><i></i><span class="fr">Agriculture &amp; systèmes alimentaires</span><span class="en">Agriculture &amp; food systems</span></span>
+        <span class="chip" style="--k:var(--ocean)"><i></i><span class="fr">Eau, biodiversité &amp; ressources naturelles</span><span class="en">Water, biodiversity &amp; natural resources</span></span>
+        <span class="chip" style="--k:var(--coral)"><i></i><span class="fr">Villes &amp; infrastructures durables</span><span class="en">Sustainable cities &amp; infrastructure</span></span>
+        <span class="chip" style="--k:var(--green)"><i></i><span class="fr">Finance durable &amp; ESG</span><span class="en">Sustainable finance &amp; ESG</span></span>
+        <span class="chip" style="--k:var(--saffron)"><i></i><span class="fr">Industrie &amp; économie circulaire</span><span class="en">Industry &amp; circular economy</span></span>
+        <span class="chip" style="--k:var(--ocean)"><i></i><span class="fr">Inclusion sociale, genre &amp; travail décent</span><span class="en">Social inclusion, gender &amp; decent work</span></span>
+        <span class="chip" style="--k:var(--coral)"><i></i><span class="fr">Entreprise responsable &amp; gouvernance</span><span class="en">Responsible business &amp; governance</span></span>
+      </div>
+    </div>
+    <div style="display:grid;gap:18px">
+      <p class="eyebrow"><span class="fr">Référentiels maîtrisés</span><span class="en">Standards &amp; frameworks</span></p>
+      <div class="chips">
+        <span class="std">CSRD / ESRS</span><span class="std">GRI</span><span class="std">ISSB</span><span class="std">ISO 26000</span><span class="std">GHG Protocol</span><span class="std">SBTi</span><span class="std">EcoVadis</span><span class="std">B Corp</span><span class="std"><span class="fr">Label RSE CGEM</span><span class="en">CGEM CSR Label</span></span><span class="std"><span class="fr">ODD</span><span class="en">SDGs</span></span><span class="std"><span class="fr">Accord de Paris</span><span class="en">Paris Agreement</span></span>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="block"><div class="wrap">
+    <div class="cta">
+      <h2><span class="fr">Parlons de votre projet.</span><span class="en">Let's talk about your project.</span></h2>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <a class="btn" href="https://calendly.com/houda-eljoundi-reframe4impact/30min" target="_blank" rel="noopener"><span class="fr">Réserver un échange</span><span class="en">Book a call</span> <span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="#contact"><span class="fr">Nous écrire</span><span class="en">Write to us</span></a>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ===================== EXPERTISES ===================== -->
+<section class="page" data-page="expertises">
+  <div class="subhero"><div class="wrap">
+    <p class="eyebrow"><span class="fr">Expertises</span><span class="en">Services</span></p>
+    <h1 style="margin-top:16px"><span class="fr">Du diagnostic à la mise en œuvre.</span><span class="en">From diagnosis to implementation.</span></h1>
+    <p><span class="fr">Un accompagnement pour les entreprises et les organisations, adapté à votre maturité et à votre secteur.</span><span class="en">Support for companies and organizations, adapted to your maturity and your sector.</span></p>
+  </div></div>
+
+  <div class="block" style="padding-top:8px"><div class="wrap">
+    <div class="grid3 svc-grid">
+      <div class="svc"><h3><span class="fr">Reporting ESG</span><span class="en">ESG reporting</span></h3><p><span class="fr">Diagnostic, double matérialité, tableaux de bord, rapports alignés CSRD, GRI ou ISSB.</span><span class="en">Diagnosis, double materiality, dashboards, reports aligned with CSRD, GRI or ISSB.</span></p></div>
+      <div class="svc"><h3><span class="fr">Bilan carbone &amp; réduction</span><span class="en">Carbon footprint &amp; reduction</span></h3><p><span class="fr">Évaluations Scopes 1 à 3 et plans d'action de réduction.</span><span class="en">Scopes 1–3 assessments and reduction action plans.</span></p></div>
+      <div class="svc"><h3><span class="fr">Économie circulaire</span><span class="en">Circular economy strategies</span></h3><p><span class="fr">Réduction des déchets, réemploi, achats responsables.</span><span class="en">Waste reduction, reuse, responsible sourcing.</span></p></div>
+      <div class="svc"><h3><span class="fr">Politiques RH</span><span class="en">People policies</span></h3><p><span class="fr">Diversité &amp; inclusion, bien-être, éthique et gouvernance.</span><span class="en">Diversity &amp; inclusion, wellbeing, ethics and governance.</span></p></div>
+      <div class="svc"><h3><span class="fr">Sensibilisation &amp; formations</span><span class="en">Awareness &amp; trainings</span></h3><p><span class="fr">Ateliers pour dirigeants, collaborateurs et fournisseurs.</span><span class="en">Workshops for leadership, employees and suppliers.</span></p></div>
+      <div class="svc"><h3><span class="fr">Analyses sectorielles</span><span class="en">Industry-specific deep dives</span></h3><p><span class="fr">Risques, benchmarks et priorités propres à votre secteur.</span><span class="en">Sector risks, benchmarks and priorities.</span></p></div>
+    </div>
+  </div></div>
+
+  <div class="block"><div class="wrap">
+    <div class="head"><p class="eyebrow"><span class="fr">Livrables types</span><span class="en">Typical deliverables</span></p><h2><span class="fr">Ce que vous avez entre les mains à la fin.</span><span class="en">What you hold at the end.</span></h2></div>
+    <div class="deliv">
+      <div class="a"><h3><span class="fr">Diagnostic &amp; reporting ESG</span><span class="en">ESG diagnosis &amp; reporting</span></h3>
+        <ul class="fr"><li>Cartographie des parties prenantes</li><li>Analyse de double matérialité</li><li>Feuille de route ESG annuelle</li><li>Tableau de bord ESG</li><li>Rapport ESG aligné GRI, ISSB ou CSRD</li><li>Présentation au conseil / à la direction</li></ul>
+        <ul class="en"><li>Stakeholder mapping</li><li>Double materiality analysis</li><li>Annual ESG roadmap</li><li>ESG dashboard</li><li>ESG report aligned with GRI, ISSB or CSRD</li><li>Board / leadership presentation</li></ul>
+      </div>
+      <div class="b"><h3><span class="fr">Carbone &amp; sensibilisation</span><span class="en">Carbon &amp; awareness</span></h3>
+        <ul class="fr"><li>Rapport de bilan carbone (méthodologie et analyse)</li><li>Plan d'action de réduction</li><li>Plan de communication interne et externe</li><li>Ateliers</li><li>Kit de sensibilisation à la durabilité</li></ul>
+        <ul class="en"><li>Carbon footprint report (methodology &amp; analysis)</li><li>Reduction action plan</li><li>Internal &amp; external communication plan</li><li>Workshops</li><li>Sustainability awareness toolkit</li></ul>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ===================== MÉTHODE ===================== -->
+<section class="page" data-page="methode">
+  <div class="subhero"><div class="wrap">
+    <p class="eyebrow"><span class="fr">Méthode</span><span class="en">Approach</span></p>
+    <h1 style="margin-top:16px"><span class="fr">Co-construire, livrer, mesurer.</span><span class="en">Co-create, deliver, measure.</span></h1>
+    <p><span class="fr">Chaque mission suit les mêmes quatre étapes, ajustées à votre maturité et à vos contraintes.</span><span class="en">Every engagement follows the same four steps, adjusted to your maturity and constraints.</span></p>
+  </div></div>
+  <div class="block" style="padding-top:8px"><div class="wrap">
+    <div class="steps">
+      <div class="step" style="--k:var(--green)"><span class="n">01</span><h3><span class="fr">Cadrage</span><span class="en">Scoping</span></h3><p><span class="fr">Un échange exploratoire pour comprendre vos enjeux et définir le périmètre.</span><span class="en">An exploratory meeting to understand your challenges and define the scope.</span></p></div>
+      <div class="step" style="--k:var(--saffron)"><span class="n">02</span><h3><span class="fr">Proposition</span><span class="en">Proposal</span></h3><p><span class="fr">Une feuille de route ou une méthodologie sur mesure, avec jalons et livrables attendus.</span><span class="en">A tailored roadmap or methodology with milestones and expected deliverables.</span></p></div>
+      <div class="step" style="--k:var(--ocean)"><span class="n">03</span><h3><span class="fr">Lancement &amp; exécution</span><span class="en">Kick-off &amp; execution</span></h3><p><span class="fr">Alignement de toutes les parties prenantes, puis réalisation en étroite collaboration avec vos équipes.</span><span class="en">Aligning all stakeholders, then delivering in close collaboration with your team.</span></p></div>
+      <div class="step" style="--k:var(--coral)"><span class="n">04</span><h3><span class="fr">Livraison &amp; suivi</span><span class="en">Delivery &amp; follow-up</span></h3><p><span class="fr">Livrables finaux, restitutions et formations ; mesure des progrès et ajustements.</span><span class="en">Final outputs, presentations and trainings; measuring progress and adjusting.</span></p></div>
+    </div>
+  </div></div>
+  <div class="block"><div class="wrap">
+    <div class="head"><p class="eyebrow"><span class="fr">Nos valeurs</span><span class="en">Our values</span></p><h2><span class="fr">Ce qui guide chaque mission.</span><span class="en">What guides every engagement.</span></h2></div>
+    <div class="values">
+      <div style="background:var(--green)"><span class="fr">Rigueur</span><span class="en">Rigor</span></div>
+      <div style="background:var(--ocean)"><span class="fr">Indépendance</span><span class="en">Independence</span></div>
+      <div style="background:var(--saffron);color:#2A1D00"><span class="fr">Transparence</span><span class="en">Transparency</span></div>
+      <div style="background:var(--coral)"><span class="fr">Co-création</span><span class="en">Co-creation</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ===================== À PROPOS ===================== -->
+<section class="page" data-page="a-propos">
+  <div class="subhero"><div class="wrap">
+    <p class="eyebrow"><span class="fr">À propos</span><span class="en">About</span></p>
+    <h1 style="margin-top:16px"><span class="fr">Une expertise construite en entreprise et en conseil.</span><span class="en">Expertise built in-house and in consulting.</span></h1>
+  </div></div>
+  <div class="block" style="padding-top:8px"><div class="wrap bio">
+    <div class="portrait"><span class="fr">PHOTO À INTÉGRER</span><span class="en">PHOTO TO ADD</span></div>
+    <div class="bio-text">
+      <p class="eyebrow"><span class="fr">Experte clé</span><span class="en">Key expert</span></p>
+      <h2>Houda El Joundi</h2>
+      <p style="font-weight:600"><span class="fr">Fondatrice &amp; consultante principale</span><span class="en">Founder &amp; Lead Consultant</span></p>
+      <p style="color:var(--muted)"><span class="fr">Plus de 5 ans d'expérience en RSE et ESG, en entreprise et en conseil, en France, en Europe et en Afrique.</span><span class="en">5+ years of experience in CSR and ESG, in-house and in consulting, across France, Europe and Africa.</span></p>
+      <div class="creds">
+        <span><span class="fr">MSc Économie du développement durable, Université Paris 1 Panthéon-Sorbonne</span><span class="en">MSc in Economics of Sustainable Development, Université Paris 1 Panthéon-Sorbonne</span></span>
+        <span><span class="fr">BA en économie, Kenyon College (États-Unis)</span><span class="en">BA in Economics, Kenyon College (USA)</span></span>
+        <span><span class="fr">Certified B Leader, B Lab France</span><span class="en">Certified B Leader, B Lab France</span></span>
+      </div>
+      <ul class="fr">
+        <li><strong>Responsable RSE, Splio (SaaS international, 2020–2024)</strong> : création et pilotage de la fonction RSE dans 5 pays, en lien direct avec le CEO, avec points trimestriels au comité de direction et présentation annuelle au conseil.</li>
+        <li>Deux bilans carbone Scopes 1 à 3 et plans de réduction, deux rapports RSE et un reporting ESG annuel auprès de plus de 5 investisseurs.</li>
+        <li>Charte d'achats responsables, code de conduite fournisseurs et politique d'alerte ; pilotage de l'évaluation EcoVadis et de la préparation B Corp (score B Impact Assessment porté de 58 à 80).</li>
+        <li>Comité RSE transverse, réseau d'ambassadeurs pays ; plus de 100 collaborateurs formés.</li>
+      </ul>
+      <ul class="en">
+        <li><strong>CSR Manager, Splio (international SaaS company, 2020–2024)</strong>: created and led the CSR function across 5 countries, reporting directly to the CEO, with quarterly updates to the leadership team and annual presentations to the board.</li>
+        <li>Delivered two Scopes 1–3 carbon footprints and reduction plans, two CSR reports and annual ESG reporting to 5+ investors.</li>
+        <li>Designed a responsible purchasing charter, supplier code of conduct and whistleblowing policy; led the EcoVadis assessment and B Corp readiness (B Impact Assessment score raised from 58 to 80).</li>
+        <li>Built a cross-functional CSR committee and a network of country ambassadors; trained 100+ employees.</li>
+      </ul>
+    </div>
+  </div></div>
+  <div class="block"><div class="wrap">
+    <div class="head"><p class="eyebrow"><span class="fr">Expériences sélectionnées</span><span class="en">Selected experience</span></p></div>
+    <div class="tablewrap"><table class="xp">
+      <tr><th><span class="fr">Diagnostics &amp; feuilles de route ESG</span><span class="en">ESG diagnosis &amp; roadmaps</span></th><td><span class="fr">Diagnostics RSE, cartographies des parties prenantes et feuilles de route pour 5 PME et ETI en France et au Maroc.</span><span class="en">CSR diagnostics, stakeholder mapping and roadmaps for 5 SMEs and mid-caps in France and Morocco.</span></td></tr>
+      <tr><th><span class="fr">Réglementation &amp; référentiels</span><span class="en">Regulation &amp; frameworks</span></th><td><span class="fr">Accompagnement CSRD/ESRS et double matérialité, ISO 26000, EcoVadis et B Corp.</span><span class="en">Support on CSRD/ESRS and double materiality, ISO 26000, EcoVadis and B Corp.</span></td></tr>
+      <tr><th><span class="fr">Reporting ESG</span><span class="en">ESG reporting</span></th><td><span class="fr">Campagnes de reporting pour plusieurs clients : consolidation d'indicateurs, tableaux de bord, communication aux parties prenantes.</span><span class="en">Reporting campaigns for several clients: indicator consolidation, dashboards and stakeholder communication.</span></td></tr>
+      <tr><th><span class="fr">Climat</span><span class="en">Climate</span></th><td><span class="fr">Bilans carbone Scopes 1 à 3 et plans de réduction alignés sur les principes SBTi.</span><span class="en">Scopes 1–3 carbon footprints and emissions reduction plans aligned with SBTi principles.</span></td></tr>
+      <tr><th><span class="fr">Économie circulaire &amp; achats</span><span class="en">Circular economy &amp; sourcing</span></th><td><span class="fr">Conseil en réduction des déchets, réemploi d'équipements et achats responsables.</span><span class="en">Advice on waste reduction, equipment reuse and responsible purchasing.</span></td></tr>
+      <tr><th><span class="fr">Formation &amp; mobilisation</span><span class="en">Training &amp; engagement</span></th><td><span class="fr">Conception de kits RSE et ateliers (Fresque du Climat, Diversité &amp; Inclusion, Green IT).</span><span class="en">CSR toolkit design and workshops (Climate Fresk, Diversity &amp; Inclusion, Green IT).</span></td></tr>
+    </table></div>
+  </div></div>
+</section>
+
+<!-- ===================== ACADÉMIE ===================== -->
+<section class="page" data-page="academie">
+  <div class="subhero"><div class="wrap">
+    <p class="eyebrow" style="color:var(--green)"><span class="fr">L'Académie 4Impact</span><span class="en">The 4Impact Academy</span></p>
+    <h1 style="margin-top:16px"><span class="fr">Des parcours courts pour passer de la réglementation à l'action.</span><span class="en">Short learning paths to move from regulation to action.</span></h1>
+    <p><span class="fr">L'initiative pédagogique de ReFrame 4Impact. Chaque parcours explique une réglementation ou un outil de la durabilité, avec des exemples concrets et un auto-diagnostic à la fin.</span><span class="en">ReFrame 4Impact's learning initiative. Each path explains a sustainability regulation or tool, with practical examples and a self-assessment at the end.</span></p>
+  </div></div>
+  <div class="block" style="padding-top:8px"><div class="wrap grid2">
+    <div class="course" style="box-shadow:inset 0 0 0 2px var(--green)">
+      <span class="tag"><span class="fr">Disponible</span><span class="en">Available</span></span>
+      <h3><span class="fr">CBAM : le parcours exportateurs</span><span class="en">CBAM: the exporter path</span></h3>
+      <p><span class="fr">Pour les exportateurs marocains vers l'Union européenne : le CBAM en 10 minutes, suis-je concerné, combien ça coûte à mon client, puis auto-diagnostic en 6 questions.</span><span class="en">For Moroccan exporters to the EU: CBAM in 10 minutes, am I in scope, what it costs my customer, then a 6-question self-assessment.</span></p>
+      <div class="meta"><span>≈ 20 min</span><span><span class="fr">Quiz</span><span class="en">Quiz</span></span><span><span class="fr">Calculateur</span><span class="en">Calculator</span></span><span><span class="fr">Auto-diagnostic</span><span class="en">Self-assessment</span></span></div>
+      <div><a class="btn btn-primary" href="https://academie-reframe4impact.netlify.app/" target="_blank" rel="noopener"><span class="fr">Commencer le parcours</span><span class="en">Start the path</span> <span class="arr">→</span></a></div>
+    </div>
+    <div class="course" style="background:transparent;box-shadow:inset 0 0 0 2px var(--line);border-style:dashed">
+      <span class="tag" style="background:var(--saffron-soft);color:var(--saffron-ink)"><span class="fr">En préparation</span><span class="en">Coming next</span></span>
+      <h3><span class="fr">D'autres parcours arrivent</span><span class="en">More paths on the way</span></h3>
+      <p><span class="fr">Titres et contenus à valider. Emplacement prévu pour les prochains parcours de l'Académie.</span><span class="en">Titles and content to be confirmed. Placeholder for the Academy's next paths.</span></p>
+      <div><a class="btn btn-ghost" href="#contact"><span class="fr">Être informé</span><span class="en">Get notified</span></a></div>
+    </div>
+  </div></div>
+  <div class="block"><div class="wrap">
+    <div class="acad-band" style="grid-template-columns:1fr">
+      <div style="display:grid;gap:14px">
+        <p class="eyebrow"><span class="fr">Et après le parcours ?</span><span class="en">After the path?</span></p>
+        <h2><span class="fr">Le Pack Cap CBAM, puis un accompagnement sur mesure.</span><span class="en">The Cap CBAM Pack, then tailored support.</span></h2>
+        <p><span class="fr">Fiche personnalisée, feuille de route et échange avec une consultante pour ceux qui veulent aller plus loin. Contenu de l'offre et modalités à confirmer.</span><span class="en">A personalised sheet, roadmap and a call with a consultant for those who want to go further. Offer content and terms to be confirmed.</span></p>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="page" data-page="contact">
+  <div class="subhero"><div class="wrap">
+    <p class="eyebrow">Contact</p>
+    <h1 style="margin-top:16px"><span class="fr">Parlons de votre projet.</span><span class="en">Let's talk about your project.</span></h1>
+    <p><span class="fr">Un premier échange de 30 minutes pour comprendre vos enjeux et voir comment nous pouvons vous aider.</span><span class="en">A first 30-minute call to understand your challenges and see how we can help.</span></p>
+  </div></div>
+  <div class="block" style="padding-top:8px"><div class="wrap contact">
+    <div class="ccard">
+      <div class="line"><span class="eyebrow"><span class="fr">Rendez-vous</span><span class="en">Book a call</span></span>
+        <a class="btn btn-primary" style="justify-self:start" href="https://calendly.com/houda-eljoundi-reframe4impact/30min" target="_blank" rel="noopener"><span class="fr">Choisir un créneau</span><span class="en">Pick a slot</span> <span class="arr">→</span></a></div>
+      <div class="line"><span class="eyebrow">Email</span><span class="v" id="mail">contact@reframe4impact.com</span><button class="copy" type="button" id="copy-mail"><span class="fr">Copier</span><span class="en">Copy</span></button></div>
+      <div class="line"><span class="eyebrow"><span class="fr">Langues</span><span class="en">Languages</span></span><span><span class="fr">Français · Anglais · Arabe</span><span class="en">English · Arabic · French</span></span></div>
+    </div>
+    <form class="ccard" id="form" novalidate>
+      <label for="f-name"><span class="fr">Nom</span><span class="en">Name</span><input id="f-name" name="name" autocomplete="name"></label>
+      <label for="f-org"><span class="fr">Organisation</span><span class="en">Organization</span><input id="f-org" name="org" autocomplete="organization"></label>
+      <label for="f-topic"><span class="fr">Sujet</span><span class="en">Topic</span>
+        <select id="f-topic" name="topic">
+          <option class="fr">Reporting ESG</option><option class="fr">Bilan carbone</option><option class="fr">CBAM</option><option class="fr">Formation</option><option class="fr">Autre</option>
+          <option class="en">ESG reporting</option><option class="en">Carbon footprint</option><option class="en">CBAM</option><option class="en">Training</option><option class="en">Other</option>
+        </select></label>
+      <label for="f-msg">Message<textarea id="f-msg" name="msg"></textarea></label>
+      <button class="btn btn-primary" type="submit" style="justify-self:start"><span class="fr">Envoyer</span><span class="en">Send</span></button>
+      <p class="ok" id="ok" hidden><span class="fr">Maquette : le formulaire n'envoie rien pour l'instant.</span><span class="en">Mockup: this form does not send anything yet.</span></p>
+    </form>
+  </div></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div style="display:grid;gap:14px">
+      <a class="logo" href="#accueil" aria-label="ReFrame 4Impact"><svg class="logo-svg" style="height:56px;width:176px" aria-hidden="true"><use href="#r4i-logo"/></svg></a>
+      <p><span class="fr">Changer de regard, accélérer l'impact.</span><span class="en">Shifting perspectives, driving impact.</span></p>
+      <p><span class="fr">Rigueur · Indépendance · Transparence · Co-création</span><span class="en">Rigor · Independence · Transparency · Co-creation</span></p>
+    </div>
+    <ul>
+      <li><a href="#expertises"><span class="fr">Expertises</span><span class="en">Services</span></a></li>
+      <li><a href="#methode"><span class="fr">Méthode</span><span class="en">Approach</span></a></li>
+      <li><a href="#academie"><span class="fr">L'Académie 4Impact</span><span class="en">4Impact Academy</span></a></li>
+    </ul>
+    <ul>
+      <li>contact@reframe4impact.com</li>
+      <li><span class="fr">Maroc &amp; France</span><span class="en">Morocco &amp; France</span></li>
+    </ul>
+    <div class="base"><span>© 2026 ReFrame 4Impact</span><span><a href="#mentions-legales"><span class="fr">Mentions légales</span><span class="en">Legal notice</span></a> · <a href="#confidentialite"><span class="fr">Confidentialité</span><span class="en">Privacy</span></a></span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  function setLang(l){
+    root.lang=l;
+    document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===l))});
+    var sel=document.getElementById('f-topic'); if(sel){var first=sel.querySelector('option.'+l); if(first) sel.value=first.value;}
+    try{localStorage.setItem('r4i-lang',l)}catch(e){}
+  }
+  var saved='fr'; try{saved=localStorage.getItem('r4i-lang')||'fr'}catch(e){}
+  setLang(saved==='en'?'en':'fr');
+  document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang)})});
+
+  var pages=[].slice.call(document.querySelectorAll('section.page'));
+  var nav=document.getElementById('nav'), burger=document.getElementById('burger');
+  function route(){
+    var id=(location.hash||'#accueil').slice(1);
+    if(!pages.some(function(p){return p.dataset.page===id})) id='accueil';
+    pages.forEach(function(p){p.classList.toggle('on',p.dataset.page===id)});
+    nav.querySelectorAll('a').forEach(function(a){ if(a.getAttribute('href')==='#'+id) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+    nav.classList.remove('open'); burger.setAttribute('aria-expanded','false');
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',route); route();
+  burger.addEventListener('click',function(){var o=nav.classList.toggle('open');burger.setAttribute('aria-expanded',String(o))});
+
+  var mz=document.getElementById('mosaic');
+  setTimeout(function(){mz.classList.add('framed')},700);
+  document.getElementById('copy-mail').addEventListener('click',function(){
+    var t=document.getElementById('mail').textContent, btn=this;
+    function done(){btn.dataset.old=btn.dataset.old||btn.innerHTML; btn.textContent=root.lang==='en'?'Copied':'Copié'; setTimeout(function(){btn.innerHTML=btn.dataset.old},1500)}
+    if(navigator.clipboard){navigator.clipboard.writeText(t).then(done,function(){selectText()})} else selectText();
+    function selectText(){var r=document.createRange();r.selectNodeContents(document.getElementById('mail'));var s=getSelection();s.removeAllRanges();s.addRange(r)}
+  });
+  document.getElementById('form').addEventListener('submit',function(e){e.preventDefault();document.getElementById('ok').hidden=false});
+})();
+</script>
