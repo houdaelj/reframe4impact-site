@@ -154,10 +154,10 @@ simple("fr", "/404.html", "Page introuvable · ReFrame 4Impact", "Cette page n'e
 
 ICE = "003811145000080"
 NETLIFY = "Netlify, Inc., 512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis"
-legal_fr = f"""<div class="legal"><h2>Éditeur du site</h2><p>ReFrame 4Impact<br>ICE : {ICE}<br>Contact : contact@reframe4impact.com</p>
+legal_fr = f"""<div class="legal"><h2>Éditeur du site</h2><p>ReFrame 4Impact, société à responsabilité limitée à associé unique (SARL AU) au capital de 100 000 MAD<br>Siège social : 5 rue Daraa, Résidence Fatima Zahra, Appt n° 5, Agdal, Rabat, Maroc (société domiciliée chez Logic Accounting SARL)<br>RC Rabat n° 191093<br>ICE : {ICE}<br>Responsable de la publication : la gérance de ReFrame 4Impact<br>Contact : contact@reframe4impact.com</p>
 <h2>Hébergement</h2><p>{NETLIFY}</p>
 <h2>Propriété intellectuelle</h2><p>Les textes, le logo et les éléments graphiques de ce site appartiennent à ReFrame 4Impact. Toute reproduction sans autorisation écrite est interdite.</p></div>"""
-legal_en = f"""<div class="legal"><h2>Publisher</h2><p>ReFrame 4Impact<br>ICE: {ICE}<br>Contact: contact@reframe4impact.com</p>
+legal_en = f"""<div class="legal"><h2>Publisher</h2><p>ReFrame 4Impact, single-member limited liability company (SARL AU) with a share capital of MAD 100,000<br>Registered office: 5 rue Daraa, Résidence Fatima Zahra, Appt 5, Agdal, Rabat, Morocco (domiciled with Logic Accounting SARL)<br>Rabat Trade Register (RC) no. 191093<br>ICE: {ICE}<br>Publication manager: the management of ReFrame 4Impact<br>Contact: contact@reframe4impact.com</p>
 <h2>Hosting</h2><p>{NETLIFY.replace('États-Unis','USA')}</p>
 <h2>Intellectual property</h2><p>The text, logo and graphics on this site belong to ReFrame 4Impact. Reproduction without written permission is prohibited.</p></div>"""
 priv_fr = """<div class="legal"><h2>Données collectées</h2><p>Quand vous utilisez le formulaire de contact, nous recevons votre nom, votre organisation, votre email, le sujet choisi et votre message. Ce site n'utilise pas de cookies de mesure d'audience ni de publicité.</p>
