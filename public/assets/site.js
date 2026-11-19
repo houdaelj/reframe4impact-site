@@ -2,7 +2,7 @@
   var nav=document.getElementById('nav'), burger=document.getElementById('burger');
   if(burger&&nav){burger.addEventListener('click',function(){var o=nav.classList.toggle('open');burger.setAttribute('aria-expanded',String(o))});}
   var mz=document.getElementById('mosaic');
-  if(mz){var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;setTimeout(function(){mz.classList.add('framed')},rm?0:1400);}
+  if(mz){var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;setTimeout(function(){mz.classList.add('framed')},rm?0:800);}
   (function(){var hd=document.querySelector('header.top');function sc(){hd&&hd.classList.toggle('scrolled',scrollY>8)}addEventListener('scroll',sc,{passive:true});sc();
     if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});

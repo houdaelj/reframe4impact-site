@@ -104,7 +104,7 @@ section.page.on{display:block;animation:rise .45s ease both}
 .mosaic{display:block;aspect-ratio:1;width:100%;max-width:100%;border:0;padding:0;background:none}
 .mk2{display:block;width:100%;height:100%;overflow:hidden}
 .pc{transform-box:fill-box;transform-origin:center;transform:translate(var(--x),var(--y)) rotate(var(--rot)) scale(var(--s,1));
-  transition:transform 2.4s cubic-bezier(.7,0,.25,1),color 1.6s ease,opacity 1.6s ease;transition-delay:var(--delay,0ms);color:var(--c)}
+  transition:transform 1.2s cubic-bezier(.7,0,.25,1),color .9s ease,opacity .9s ease;transition-delay:var(--delay,0ms);color:var(--c)}
 /* départ : un paysage (horizon, strates, soleil levant, jeune pousse) ; le « 4 » n'apparaît qu'une fois le cadre posé */
 .pc-four{opacity:0}
 .mosaic.framed .pc-four{opacity:1}
@@ -123,7 +123,7 @@ section.page.on{display:block;animation:rise .45s ease both}
 .mosaic:not(.framed) ~ .reframe-cap .b, .mosaic.framed ~ .reframe-cap .a{display:none}
 
 .tagline{margin:calc(18px - 20%) 0 0;padding-left:22.5%;text-align:left;font:700 clamp(22px,2.4vw,30px)/1.15 var(--display);letter-spacing:-.02em;color:var(--logo-ink);text-wrap:balance;
-  animation:tagIn 1s cubic-bezier(.2,.8,.2,1) 5.4s both}
+  animation:tagIn .8s cubic-bezier(.2,.8,.2,1) 2.7s both}
 .tagline em{font-style:normal;color:var(--green)}
 @keyframes tagIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.tagline{animation:none}}
