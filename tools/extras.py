@@ -2,7 +2,7 @@ import re,sys
 OUT=sys.argv[1]; DEFS=sys.argv[2]; DOMAIN="https://reframe4impact.com"
 d=open(DEFS).read()
 mark=re.search(r'<symbol id="r4i-mark" viewBox="([^"]*)">(.*?)</symbol>',d,re.S)
-fav=f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="{mark.group(1)}"><style>.p-frame,.p-four{{fill:none;stroke:#123A31}}.p-ring{{fill:#8FC9A6}}.p-leaf{{fill:#1E7A57}}@media (prefers-color-scheme:dark){{.p-frame,.p-four{{stroke:#fff}}.p-ring{{fill:#A8D5BA}}.p-leaf{{fill:#D7EDE0}}}}</style>{mark.group(2)}</svg>'''
+fav=f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="{mark.group(1)}"><style>.p-frame,.p-four{{fill:none;stroke:#123A31}}.p-ring{{fill:#C9B79A}}.p-leaf{{fill:#2E7D5B}}@media (prefers-color-scheme:dark){{.p-frame,.p-four{{stroke:#fff}}.p-ring{{fill:#C9B79A}}.p-leaf{{fill:#D7EDE0}}}}</style>{mark.group(2)}</svg>'''
 open(OUT+'/assets/favicon.svg','w').write(fav)
 open(OUT+'/index.html','w').write('''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>ReFrame 4Impact</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">

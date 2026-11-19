@@ -1,13 +1,13 @@
 /* Layout: sticky top bar + hash-routed pages; one bold zellige mosaic in the hero, quiet colour-coded sections after. */
 :root{
-  --paper:#F7F8F6; --surface:#FFFFFF; --ink:#10241F; --muted:#526760; --line:#DAE3DC;
-  --green:#1E7A57; --green-soft:#DDEFE5;
-  --coral:#C4694C; --coral-ink:#9E4E35; --coral-soft:#F3E2DA;
+  --paper:#F6F5F1; --surface:#FFFFFF; --ink:#122320; --muted:#5B6460; --line:#E2DED5;
+  --green:#123A31; --green-soft:#ECE6DA;
+  --coral:#B85C40; --coral-ink:#9A4A32; --coral-soft:#F1E1D8;
   --saffron:#E0A73E; --saffron-ink:#8A5A00; --saffron-soft:#FCEFCF;
   --ocean:#2F5597; --ocean-soft:#E1E8F3;
-  --on-color:#FFFFFF; --band:#123A31; --band-ink:#F2F7F4;
-  --hl-bg:#CFE6DA;
-  --logo-ink:#123A31; --logo-ring:#8FC9A6; --logo-leaf:#1E7A57; --logo-sub:#1E7A57;
+  --on-color:#FFFFFF; --band:#123A31; --band-ink:#F2F5F1;
+  --hl-bg:#E8DDCB;
+  --logo-ink:#123A31; --logo-ring:#C9B79A; --logo-leaf:#2E7D5B; --logo-sub:#5B6B64;
   --display:"Manrope", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --hero:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --body:"IBM Plex Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
@@ -15,15 +15,15 @@
   --r:18px;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --paper:#0C1714; --surface:#13221E; --ink:#E6EFEA; --muted:#9AB0A7; --line:#25392F;
-  --green:#4CC293; --green-soft:#16362A; --coral:#D98C70; --coral-ink:#E3A48C; --coral-soft:#3A251D;
+  --paper:#0E1412; --surface:#151D1A; --ink:#ECEAE4; --muted:#A5ADA8; --line:#2A332F;
+  --green:#B7D3C4; --green-soft:#222B27; --coral:#D98C70; --coral-ink:#E3A48C; --coral-soft:#3A251D;
   --saffron:#F7C559; --saffron-ink:#F7C559; --saffron-soft:#352A12; --ocean:#74A3F5; --ocean-soft:#172A4A;
-  --hl-bg:#24503F; --logo-ink:#FFFFFF; --logo-ring:#A8D5BA; --logo-leaf:#D7EDE0; --logo-sub:#CFE6DA; --on-color:#08120F; --band:#16302A; --band-ink:#E6EFEA; color-scheme:dark }}
+  --hl-bg:#3D3426; --logo-ink:#FFFFFF; --logo-ring:#C9B79A; --logo-leaf:#8CC7A8; --logo-sub:#C9CFCB; --on-color:#0E1412; --band:#16221E; --band-ink:#ECEAE4; color-scheme:dark }}
 :root[data-theme="dark"]{
-  --paper:#0C1714; --surface:#13221E; --ink:#E6EFEA; --muted:#9AB0A7; --line:#25392F;
-  --green:#4CC293; --green-soft:#16362A; --coral:#D98C70; --coral-ink:#E3A48C; --coral-soft:#3A251D;
+  --paper:#0E1412; --surface:#151D1A; --ink:#ECEAE4; --muted:#A5ADA8; --line:#2A332F;
+  --green:#B7D3C4; --green-soft:#222B27; --coral:#D98C70; --coral-ink:#E3A48C; --coral-soft:#3A251D;
   --saffron:#F7C559; --saffron-ink:#F7C559; --saffron-soft:#352A12; --ocean:#74A3F5; --ocean-soft:#172A4A;
-  --hl-bg:#24503F; --logo-ink:#FFFFFF; --logo-ring:#A8D5BA; --logo-leaf:#D7EDE0; --logo-sub:#CFE6DA; --on-color:#08120F; --band:#16302A; --band-ink:#E6EFEA; color-scheme:dark }
+  --hl-bg:#3D3426; --logo-ink:#FFFFFF; --logo-ring:#C9B79A; --logo-leaf:#8CC7A8; --logo-sub:#C9CFCB; --on-color:#0E1412; --band:#16221E; --band-ink:#ECEAE4; color-scheme:dark }
 
 html[lang="fr"] .en, html[lang="en"] .fr{display:none!important}
 *{box-sizing:border-box}
@@ -48,7 +48,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background
 .p-ring{fill:var(--logo-ring)}.p-leaf{fill:var(--logo-leaf)}
 .p-word{fill:var(--logo-ink);stroke:var(--logo-ink)}.p-word2{fill:var(--logo-sub);stroke:var(--logo-sub)}
 .logo-svg{display:block;height:52px;width:162px}
-footer{--logo-ink:#FFFFFF;--logo-ring:#A8D5BA;--logo-leaf:#D7EDE0;--logo-sub:#CFE6DA}
+footer{--logo-ink:#FFFFFF;--logo-ring:#C9B79A;--logo-leaf:#8CC7A8;--logo-sub:#C9CFCB}
 .mark{width:30px;height:30px;display:grid;grid-template-columns:1fr 1fr;gap:2px;flex:none}
 .mark i{display:block}
 .mark i:nth-child(1){background:var(--green);border-radius:15px 0 0 0}
@@ -103,11 +103,14 @@ section.page.on{display:block;animation:rise .45s ease both}
 .hero > .wrap > div{min-width:0}
 .mosaic{display:block;aspect-ratio:1;width:100%;max-width:100%;border:0;padding:0;background:none}
 .mk2{display:block;width:100%;height:100%;overflow:hidden}
-.pc{transform-box:fill-box;transform-origin:center;transform:translate(var(--x),var(--y)) rotate(var(--rot));
-  transition:transform 1s cubic-bezier(.65,0,.35,1),color .8s ease;transition-delay:calc(var(--d) * 45ms);color:var(--c)}
+.pc{transform-box:fill-box;transform-origin:center;transform:translate(var(--x),var(--y)) rotate(var(--rot)) scale(var(--s,1));
+  transition:transform 1.2s cubic-bezier(.7,0,.25,1),color .9s ease,opacity .9s ease;transition-delay:var(--delay,0ms);color:var(--c)}
+/* départ : un paysage (horizon, strates, soleil levant, jeune pousse) ; le « 4 » n'apparaît qu'une fois le cadre posé */
+.pc-four{opacity:0}
+.mosaic.framed .pc-four{opacity:1}
 .pc path{stroke:currentColor}
 .pc-ring path,.pc-leaf path{fill:currentColor;stroke:none}
-.pc-ring{opacity:.9}
+.pc-ring{opacity:.95}
 /* reframed: the scattered pieces snap into the ReFrame 4Impact mark and take its colours */
 .mosaic.framed .pc{transform:none}
 .mosaic.framed .pc-s{color:var(--logo-ink)}
@@ -120,7 +123,7 @@ section.page.on{display:block;animation:rise .45s ease both}
 .mosaic:not(.framed) ~ .reframe-cap .b, .mosaic.framed ~ .reframe-cap .a{display:none}
 
 .tagline{margin:calc(18px - 20%) 0 0;padding-left:22.5%;text-align:left;font:700 clamp(22px,2.4vw,30px)/1.15 var(--display);letter-spacing:-.02em;color:var(--logo-ink);text-wrap:balance;
-  animation:tagIn .7s cubic-bezier(.2,.8,.2,1) 1.9s both}
+  animation:tagIn .8s cubic-bezier(.2,.8,.2,1) 2.7s both}
 .tagline em{font-style:normal;color:var(--green)}
 @keyframes tagIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.tagline{animation:none}}
@@ -134,7 +137,7 @@ section.page.on{display:block;animation:rise .45s ease both}
 /* pillars */
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .pillar{padding:28px;border-radius:var(--r);background:var(--surface);display:grid;gap:12px;align-content:start}
-.pillar .picon{width:52px;height:52px;display:block;padding:13px;border-radius:14px;background:var(--green-soft);fill:none;stroke:var(--green);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;box-sizing:border-box}
+.pillar .picon{width:52px;height:52px;display:block;padding:13px;border-radius:0;background:var(--green-soft);fill:none;stroke:var(--green);stroke-width:1.25;stroke-linecap:square;stroke-linejoin:miter;box-sizing:border-box}
 .pillar h3{font-size:24px}
 .pillar p{color:var(--muted)}
 
@@ -242,7 +245,7 @@ footer{margin-top:24px;background:var(--band);color:var(--band-ink);position:rel
 .ft{padding-block:64px 28px;display:grid;gap:48px;position:relative;z-index:1}
 .ft-top{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between;padding-bottom:40px;border-bottom:1px solid color-mix(in srgb,var(--band-ink) 16%,transparent)}
 .ft-claim{font:700 clamp(30px,4.6vw,56px)/1.05 var(--display);letter-spacing:-.025em;margin:0;opacity:1}
-.ft-claim em{font-style:normal;color:#8FD3AE}
+.ft-claim em{font-style:normal;color:#D9C7A6}
 .ft-cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
 .ft-brand{display:grid;gap:14px;align-content:start}
 .ft-brand p{max-width:34ch}

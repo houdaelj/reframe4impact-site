@@ -5,14 +5,14 @@
 <style>
 /* Layout: sticky top bar + hash-routed pages; one bold zellige mosaic in the hero, quiet colour-coded sections after. */
 :root{
-  --paper:#F7F8F6; --surface:#FFFFFF; --ink:#10241F; --muted:#526760; --line:#DAE3DC;
-  --green:#1E7A57; --green-soft:#DDEFE5;
-  --coral:#C4694C; --coral-ink:#9E4E35; --coral-soft:#F3E2DA;
+  --paper:#F6F5F1; --surface:#FFFFFF; --ink:#122320; --muted:#5B6460; --line:#E2DED5;
+  --green:#123A31; --green-soft:#ECE6DA;
+  --coral:#B85C40; --coral-ink:#9A4A32; --coral-soft:#F1E1D8;
   --saffron:#E0A73E; --saffron-ink:#8A5A00; --saffron-soft:#FCEFCF;
   --ocean:#2F5597; --ocean-soft:#E1E8F3;
-  --on-color:#FFFFFF; --band:#123A31; --band-ink:#F2F7F4;
-  --hl-bg:#CFE6DA;
-  --logo-ink:#123A31; --logo-ring:#8FC9A6; --logo-leaf:#1E7A57; --logo-sub:#1E7A57;
+  --on-color:#FFFFFF; --band:#123A31; --band-ink:#F2F5F1;
+  --hl-bg:#E8DDCB;
+  --logo-ink:#123A31; --logo-ring:#C9B79A; --logo-leaf:#2E7D5B; --logo-sub:#5B6B64;
   --display:"Manrope", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --hero:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --body:"IBM Plex Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
@@ -20,15 +20,15 @@
   --r:18px;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --paper:#0C1714; --surface:#13221E; --ink:#E6EFEA; --muted:#9AB0A7; --line:#25392F;
-  --green:#4CC293; --green-soft:#16362A; --coral:#D98C70; --coral-ink:#E3A48C; --coral-soft:#3A251D;
+  --paper:#0E1412; --surface:#151D1A; --ink:#ECEAE4; --muted:#A5ADA8; --line:#2A332F;
+  --green:#B7D3C4; --green-soft:#222B27; --coral:#D98C70; --coral-ink:#E3A48C; --coral-soft:#3A251D;
   --saffron:#F7C559; --saffron-ink:#F7C559; --saffron-soft:#352A12; --ocean:#74A3F5; --ocean-soft:#172A4A;
-  --hl-bg:#24503F; --logo-ink:#FFFFFF; --logo-ring:#A8D5BA; --logo-leaf:#D7EDE0; --logo-sub:#CFE6DA; --on-color:#08120F; --band:#16302A; --band-ink:#E6EFEA; color-scheme:dark }}
+  --hl-bg:#3D3426; --logo-ink:#FFFFFF; --logo-ring:#C9B79A; --logo-leaf:#8CC7A8; --logo-sub:#C9CFCB; --on-color:#0E1412; --band:#16221E; --band-ink:#ECEAE4; color-scheme:dark }}
 :root[data-theme="dark"]{
-  --paper:#0C1714; --surface:#13221E; --ink:#E6EFEA; --muted:#9AB0A7; --line:#25392F;
-  --green:#4CC293; --green-soft:#16362A; --coral:#D98C70; --coral-ink:#E3A48C; --coral-soft:#3A251D;
+  --paper:#0E1412; --surface:#151D1A; --ink:#ECEAE4; --muted:#A5ADA8; --line:#2A332F;
+  --green:#B7D3C4; --green-soft:#222B27; --coral:#D98C70; --coral-ink:#E3A48C; --coral-soft:#3A251D;
   --saffron:#F7C559; --saffron-ink:#F7C559; --saffron-soft:#352A12; --ocean:#74A3F5; --ocean-soft:#172A4A;
-  --hl-bg:#24503F; --logo-ink:#FFFFFF; --logo-ring:#A8D5BA; --logo-leaf:#D7EDE0; --logo-sub:#CFE6DA; --on-color:#08120F; --band:#16302A; --band-ink:#E6EFEA; color-scheme:dark }
+  --hl-bg:#3D3426; --logo-ink:#FFFFFF; --logo-ring:#C9B79A; --logo-leaf:#8CC7A8; --logo-sub:#C9CFCB; --on-color:#0E1412; --band:#16221E; --band-ink:#ECEAE4; color-scheme:dark }
 
 html[lang="fr"] .en, html[lang="en"] .fr{display:none!important}
 *{box-sizing:border-box}
@@ -53,7 +53,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background
 .p-ring{fill:var(--logo-ring)}.p-leaf{fill:var(--logo-leaf)}
 .p-word{fill:var(--logo-ink);stroke:var(--logo-ink)}.p-word2{fill:var(--logo-sub);stroke:var(--logo-sub)}
 .logo-svg{display:block;height:52px;width:162px}
-footer{--logo-ink:#FFFFFF;--logo-ring:#A8D5BA;--logo-leaf:#D7EDE0;--logo-sub:#CFE6DA}
+footer{--logo-ink:#FFFFFF;--logo-ring:#C9B79A;--logo-leaf:#8CC7A8;--logo-sub:#C9CFCB}
 .mark{width:30px;height:30px;display:grid;grid-template-columns:1fr 1fr;gap:2px;flex:none}
 .mark i{display:block}
 .mark i:nth-child(1){background:var(--green);border-radius:15px 0 0 0}
@@ -108,11 +108,14 @@ section.page.on{display:block;animation:rise .45s ease both}
 .hero > .wrap > div{min-width:0}
 .mosaic{display:block;aspect-ratio:1;width:100%;max-width:100%;border:0;padding:0;background:none}
 .mk2{display:block;width:100%;height:100%;overflow:hidden}
-.pc{transform-box:fill-box;transform-origin:center;transform:translate(var(--x),var(--y)) rotate(var(--rot));
-  transition:transform 1s cubic-bezier(.65,0,.35,1),color .8s ease;transition-delay:calc(var(--d) * 45ms);color:var(--c)}
+.pc{transform-box:fill-box;transform-origin:center;transform:translate(var(--x),var(--y)) rotate(var(--rot)) scale(var(--s,1));
+  transition:transform 1.2s cubic-bezier(.7,0,.25,1),color .9s ease,opacity .9s ease;transition-delay:var(--delay,0ms);color:var(--c)}
+/* départ : un paysage (horizon, strates, soleil levant, jeune pousse) ; le « 4 » n'apparaît qu'une fois le cadre posé */
+.pc-four{opacity:0}
+.mosaic.framed .pc-four{opacity:1}
 .pc path{stroke:currentColor}
 .pc-ring path,.pc-leaf path{fill:currentColor;stroke:none}
-.pc-ring{opacity:.9}
+.pc-ring{opacity:.95}
 /* reframed: the scattered pieces snap into the ReFrame 4Impact mark and take its colours */
 .mosaic.framed .pc{transform:none}
 .mosaic.framed .pc-s{color:var(--logo-ink)}
@@ -125,7 +128,7 @@ section.page.on{display:block;animation:rise .45s ease both}
 .mosaic:not(.framed) ~ .reframe-cap .b, .mosaic.framed ~ .reframe-cap .a{display:none}
 
 .tagline{margin:calc(18px - 20%) 0 0;padding-left:22.5%;text-align:left;font:700 clamp(22px,2.4vw,30px)/1.15 var(--display);letter-spacing:-.02em;color:var(--logo-ink);text-wrap:balance;
-  animation:tagIn .7s cubic-bezier(.2,.8,.2,1) 1.9s both}
+  animation:tagIn .8s cubic-bezier(.2,.8,.2,1) 2.7s both}
 .tagline em{font-style:normal;color:var(--green)}
 @keyframes tagIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.tagline{animation:none}}
@@ -139,7 +142,7 @@ section.page.on{display:block;animation:rise .45s ease both}
 /* pillars */
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .pillar{padding:28px;border-radius:var(--r);background:var(--surface);display:grid;gap:12px;align-content:start}
-.pillar .picon{width:52px;height:52px;display:block;padding:13px;border-radius:14px;background:var(--green-soft);fill:none;stroke:var(--green);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;box-sizing:border-box}
+.pillar .picon{width:52px;height:52px;display:block;padding:13px;border-radius:0;background:var(--green-soft);fill:none;stroke:var(--green);stroke-width:1.25;stroke-linecap:square;stroke-linejoin:miter;box-sizing:border-box}
 .pillar h3{font-size:24px}
 .pillar p{color:var(--muted)}
 
@@ -247,7 +250,7 @@ footer{margin-top:24px;background:var(--band);color:var(--band-ink);position:rel
 .ft{padding-block:64px 28px;display:grid;gap:48px;position:relative;z-index:1}
 .ft-top{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between;padding-bottom:40px;border-bottom:1px solid color-mix(in srgb,var(--band-ink) 16%,transparent)}
 .ft-claim{font:700 clamp(30px,4.6vw,56px)/1.05 var(--display);letter-spacing:-.025em;margin:0;opacity:1}
-.ft-claim em{font-style:normal;color:#8FD3AE}
+.ft-claim em{font-style:normal;color:#D9C7A6}
 .ft-cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
 .ft-brand{display:grid;gap:14px;align-content:start}
 .ft-brand p{max-width:34ch}
@@ -331,11 +334,11 @@ nav.main a{position:relative}
       <div>
         <h1>
           <span class="fr">Faire de la durabilité un levier de <span class="hl hl-g">résilience</span>, de <span class="hl hl-s">performance</span> et d'<span class="hl hl-c">impact</span>.</span>
-          <span class="en">Turning sustainability into <span class="hl hl-g">resilience</span>, <span class="hl hl-s">performance</span> and <span class="hl hl-c">impact</span>.</span>
+          <span class="en">Turning social and environmental sustainability into <span class="hl hl-g">resilience</span>, <span class="hl hl-s">performance</span> and <span class="hl hl-c">impact</span>.</span>
         </h1>
         <p class="lead">
           <span class="fr">Nous accompagnons les entreprises et les organisations pour intégrer la durabilité à leur stratégie et à leur quotidien : du diagnostic au reporting, de la formation à la mise en œuvre.</span>
-          <span class="en">We support companies and organizations in integrating sustainability into their strategy and day-to-day work, from diagnosis and reporting to training and implementation.</span>
+          <span class="en">We support companies and organizations in integrating social and environmental sustainability into their strategy and day-to-day work, from diagnosis and reporting to training and implementation.</span>
         </p>
         <div class="ctas">
           <a class="btn btn-primary" href="https://calendly.com/houda-eljoundi-reframe4impact/30min" target="_blank" rel="noopener"><span class="fr">Échanger 30 minutes</span><span class="en">Book a 30-min call</span> <span class="arr">→</span></a>
@@ -344,7 +347,7 @@ nav.main a{position:relative}
       </div>
       <div>
         <div class="mosaic" id="mosaic" aria-hidden="true">
-          <svg class="mk2" viewBox="219 390 58 62" aria-hidden="true"><g class="pc pc-s" style="--x:5px;--y:-3px;--rot:70deg;--c:var(--coral);--d:0"><path d="M 194 50 L 194 10.5" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-s" style="--x:2px;--y:-5px;--rot:-18deg;--c:var(--ocean);--d:1"><path d="M 194 10.5 L 11.5 10.5" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-s" style="--x:-5px;--y:2px;--rot:24deg;--c:var(--saffron);--d:2"><path d="M 11.5 10.5 L 11.5 204.5" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-s" style="--x:2px;--y:5px;--rot:14deg;--c:var(--green);--d:3"><path d="M 11.5 204.5 L 194 204.5" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-s" style="--x:5px;--y:4px;--rot:-60deg;--c:var(--ocean);--d:4"><path d="M 194 204.5 L 194 150" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-ring" style="--x:-5px;--y:-5px;--rot:0deg;--c:var(--saffron);--d:5"><path fill-rule="nonzero" d="M 250.296875 413.847656 C 250.296875 414.21875 250.261719 414.585938 250.1875 414.949219 C 250.113281 415.3125 250.003906 415.664062 249.863281 416.007812 C 249.71875 416.347656 249.542969 416.675781 249.332031 416.980469 C 249.125 417.289062 248.886719 417.574219 248.621094 417.835938 C 248.355469 418.097656 248.066406 418.332031 247.753906 418.539062 C 247.441406 418.742188 247.113281 418.917969 246.765625 419.058594 C 246.417969 419.199219 246.0625 419.308594 245.691406 419.378906 C 245.324219 419.453125 244.953125 419.488281 244.578125 419.488281 C 244.203125 419.488281 243.828125 419.453125 243.460938 419.378906 C 243.09375 419.308594 242.734375 419.199219 242.386719 419.058594 C 242.039062 418.917969 241.710938 418.742188 241.398438 418.539062 C 241.085938 418.332031 240.796875 418.097656 240.53125 417.835938 C 240.265625 417.574219 240.027344 417.289062 239.820312 416.980469 C 239.613281 416.675781 239.4375 416.347656 239.292969 416.007812 C 239.148438 415.664062 239.039062 415.3125 238.964844 414.949219 C 238.894531 414.585938 238.855469 414.21875 238.855469 413.847656 C 238.855469 413.480469 238.894531 413.113281 238.964844 412.75 C 239.039062 412.386719 239.148438 412.03125 239.292969 411.691406 C 239.4375 411.347656 239.613281 411.023438 239.820312 410.714844 C 240.027344 410.410156 240.265625 410.125 240.53125 409.863281 C 240.796875 409.601562 241.085938 409.367188 241.398438 409.160156 C 241.710938 408.953125 242.039062 408.78125 242.386719 408.640625 C 242.734375 408.496094 243.09375 408.390625 243.460938 408.320312 C 243.828125 408.246094 244.203125 408.210938 244.578125 408.210938 C 244.953125 408.210938 245.324219 408.246094 245.691406 408.320312 C 246.0625 408.390625 246.417969 408.496094 246.765625 408.640625 C 247.113281 408.78125 247.441406 408.953125 247.753906 409.160156 C 248.066406 409.367188 248.355469 409.601562 248.621094 409.863281 C 248.886719 410.125 249.125 410.410156 249.332031 410.714844 C 249.542969 411.023438 249.71875 411.347656 249.863281 411.691406 C 250.003906 412.03125 250.113281 412.386719 250.1875 412.75 C 250.261719 413.113281 250.296875 413.480469 250.296875 413.847656 Z M 250.296875 413.847656 "/></g><g class="pc pc-leaf" style="--x:4px;--y:-6px;--rot:50deg;--c:var(--green);--d:6"><path fill-rule="nonzero" d="M 249.902344 422.988281 C 250.296875 415.792969 255.230469 409.570312 264.105469 407.238281 C 263.511719 415.40625 258.582031 421.238281 249.902344 422.988281 Z M 249.902344 422.988281 "/></g><g class="pc pc-leaf" style="--x:5px;--y:5px;--rot:-45deg;--c:var(--ocean);--d:7"><path fill-rule="nonzero" d="M 249.113281 425.125 C 256.015625 423.570312 263.117188 426.683594 267.0625 433.875 C 259.566406 435.625 252.074219 432.515625 249.113281 425.125 Z M 249.113281 425.125 "/></g><g class="pc pc-s" style="--x:-3px;--y:3px;--rot:-28deg;--c:var(--coral);--d:8"><path stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" d="M 85.492534 179.000652 L 85.492534 44.00021 L 20.003633 135.004972 L 94.99803 135.004972 " transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)" fill="none"/></g></svg>
+          <svg class="mk2" viewBox="219 390 58 62" aria-hidden="true"><g class="pc pc-s" style="--x:-8.25px;--y:6.7px;--rot:0deg;--s:.55;--c:var(--coral);--delay:180ms"><path d="M 194 50 L 194 10.5" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-s" style="--x:-14.25px;--y:47px;--rot:0deg;--s:.45;--c:var(--muted);--delay:60ms"><path d="M 194 10.5 L 11.5 10.5" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-s" style="--x:29.75px;--y:28.1px;--rot:90deg;--s:.45;--c:var(--muted);--delay:120ms"><path d="M 11.5 10.5 L 11.5 204.5" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-s" style="--x:0px;--y:4.8px;--rot:0deg;--s:1.15;--c:var(--muted);--delay:0ms"><path d="M 11.5 204.5 L 194 204.5" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-s" style="--x:1.25px;--y:-18.4px;--rot:45deg;--s:.45;--c:var(--coral);--delay:240ms"><path d="M 194 204.5 L 194 150" stroke-width="3" stroke-linecap="square" fill="none" transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)"/></g><g class="pc pc-ring" style="--x:15.4px;--y:10.2px;--rot:0deg;--s:1;--c:var(--coral);--delay:300ms"><path fill-rule="nonzero" d="M 250.296875 413.847656 C 250.296875 414.21875 250.261719 414.585938 250.1875 414.949219 C 250.113281 415.3125 250.003906 415.664062 249.863281 416.007812 C 249.71875 416.347656 249.542969 416.675781 249.332031 416.980469 C 249.125 417.289062 248.886719 417.574219 248.621094 417.835938 C 248.355469 418.097656 248.066406 418.332031 247.753906 418.539062 C 247.441406 418.742188 247.113281 418.917969 246.765625 419.058594 C 246.417969 419.199219 246.0625 419.308594 245.691406 419.378906 C 245.324219 419.453125 244.953125 419.488281 244.578125 419.488281 C 244.203125 419.488281 243.828125 419.453125 243.460938 419.378906 C 243.09375 419.308594 242.734375 419.199219 242.386719 419.058594 C 242.039062 418.917969 241.710938 418.742188 241.398438 418.539062 C 241.085938 418.332031 240.796875 418.097656 240.53125 417.835938 C 240.265625 417.574219 240.027344 417.289062 239.820312 416.980469 C 239.613281 416.675781 239.4375 416.347656 239.292969 416.007812 C 239.148438 415.664062 239.039062 415.3125 238.964844 414.949219 C 238.894531 414.585938 238.855469 414.21875 238.855469 413.847656 C 238.855469 413.480469 238.894531 413.113281 238.964844 412.75 C 239.039062 412.386719 239.148438 412.03125 239.292969 411.691406 C 239.4375 411.347656 239.613281 411.023438 239.820312 410.714844 C 240.027344 410.410156 240.265625 410.125 240.53125 409.863281 C 240.796875 409.601562 241.085938 409.367188 241.398438 409.160156 C 241.710938 408.953125 242.039062 408.78125 242.386719 408.640625 C 242.734375 408.496094 243.09375 408.390625 243.460938 408.320312 C 243.828125 408.246094 244.203125 408.210938 244.578125 408.210938 C 244.953125 408.210938 245.324219 408.246094 245.691406 408.320312 C 246.0625 408.390625 246.417969 408.496094 246.765625 408.640625 C 247.113281 408.78125 247.441406 408.953125 247.753906 409.160156 C 248.066406 409.367188 248.355469 409.601562 248.621094 409.863281 C 248.886719 410.125 249.125 410.410156 249.332031 410.714844 C 249.542969 411.023438 249.71875 411.347656 249.863281 411.691406 C 250.003906 412.03125 250.113281 412.386719 250.1875 412.75 C 250.261719 413.113281 250.296875 413.480469 250.296875 413.847656 Z M 250.296875 413.847656 "/></g><g class="pc pc-leaf" style="--x:-16px;--y:15.9px;--rot:-10deg;--s:.75;--c:var(--logo-leaf);--delay:420ms"><path fill-rule="nonzero" d="M 249.902344 422.988281 C 250.296875 415.792969 255.230469 409.570312 264.105469 407.238281 C 263.511719 415.40625 258.582031 421.238281 249.902344 422.988281 Z M 249.902344 422.988281 "/></g><g class="pc pc-leaf" style="--x:-25.1px;--y:5.5px;--rot:-160deg;--s:.7;--c:var(--logo-leaf);--delay:480ms"><path fill-rule="nonzero" d="M 249.113281 425.125 C 256.015625 423.570312 263.117188 426.683594 267.0625 433.875 C 259.566406 435.625 252.074219 432.515625 249.113281 425.125 Z M 249.113281 425.125 "/></g><g class="pc pc-s pc-four" style="--x:0px;--y:0px;--rot:0deg;--s:.2;--c:var(--logo-ink);--delay:700ms"><path stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4" d="M 85.492534 179.000652 L 85.492534 44.00021 L 20.003633 135.004972 L 94.99803 135.004972 " transform="matrix(0.197254, 0, 0, 0.194444, 229.979978, 399.460056)" fill="none"/></g></svg>
         </div>
         <p class="tagline"><span class="fr">Changer de regard,<br><em>accélérer l'impact.</em></span><span class="en">Shifting perspectives,<br><em>driving impact.</em></span></p>
       </div>
@@ -358,9 +361,9 @@ nav.main a{position:relative}
       <h2><span class="fr">Un cabinet à taille humaine, entre réalités locales et standards internationaux.</span><span class="en">A boutique consultancy bridging local realities and global standards.</span></h2>
     </div>
     <div class="grid3">
-      <div class="pillar"><svg class="picon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg><h3><span class="fr">Sur mesure</span><span class="en">Tailor-made</span></h3><p><span class="fr">Nous nous adaptons au niveau de maturité, aux contraintes et aux enjeux propres à chaque organisation.</span><span class="en">We adapt to each organization's maturity level, constraints and unique challenges.</span></p></div>
-      <div class="pillar"><svg class="picon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="5"/><circle cx="8.5" cy="14.5" r="5"/><circle cx="15.5" cy="14.5" r="5"/></svg><h3><span class="fr">Holistique</span><span class="en">Holistic</span></h3><p><span class="fr">Nous combinons stratégie, déploiement opérationnel et mobilisation des parties prenantes pour des résultats efficaces et durables.</span><span class="en">We combine strategy, operational deployment and stakeholder engagement for efficient, lasting outcomes.</span></p></div>
-      <div class="pillar"><svg class="picon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><h3><span class="fr">Local, international &amp; multilingue</span><span class="en">Local, international &amp; multilingual</span></h3><p><span class="fr">Nous relions les réalités du terrain aux référentiels mondiaux, en français, en anglais et en arabe.</span><span class="en">We bridge local realities with global standards and frameworks, and deliver in English, Arabic and French.</span></p></div>
+      <div class="pillar"><svg class="picon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8V3H3V21H20V16"/><path d="M7 17V8L16 17Z"/><path d="M7 11H8.6M7 14H8.6"/></svg><h3><span class="fr">Sur mesure</span><span class="en">Tailor-made</span></h3><p><span class="fr">Nous nous adaptons au niveau de maturité, aux contraintes et aux enjeux propres à chaque organisation.</span><span class="en">We adapt to each organization's maturity level, constraints and unique challenges.</span></p></div>
+      <div class="pillar"><svg class="picon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8V3H3V21H20V16"/><circle cx="9.5" cy="12" r="3.2"/><path d="M12.6 15.2Q14.2 8.4 22 8.2Q20.6 14.6 12.6 15.2Z"/></svg><h3><span class="fr">Holistique</span><span class="en">Holistic</span></h3><p><span class="fr">Nous combinons stratégie, déploiement opérationnel et mobilisation des parties prenantes pour des résultats efficaces et durables.</span><span class="en">We combine strategy, operational deployment and stakeholder engagement for efficient, lasting outcomes.</span></p></div>
+      <div class="pillar"><svg class="picon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8V3H3V21H20V16"/><circle cx="10.5" cy="12" r="4.5"/><path d="M6 12H23M10.5 7.5L12.4 12L10.5 16.5L8.6 12Z"/></svg><h3><span class="fr">Local, international &amp; multilingue</span><span class="en">Local, international &amp; multilingual</span></h3><p><span class="fr">Nous relions les réalités du terrain aux référentiels mondiaux, en français, en anglais et en arabe.</span><span class="en">We bridge local realities with global standards and frameworks, and deliver in English, Arabic and French.</span></p></div>
     </div>
   </div></div>
 
@@ -648,7 +651,7 @@ nav.main a{position:relative}
   burger.addEventListener('click',function(){var o=nav.classList.toggle('open');burger.setAttribute('aria-expanded',String(o))});
 
   var mz=document.getElementById('mosaic');
-  setTimeout(function(){mz.classList.add('framed')},700);
+  setTimeout(function(){mz.classList.add('framed')},800);
   (function(){var hd=document.querySelector('header.top');function sc(){hd&&hd.classList.toggle('scrolled',scrollY>8)}addEventListener('scroll',sc,{passive:true});sc();
     if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
